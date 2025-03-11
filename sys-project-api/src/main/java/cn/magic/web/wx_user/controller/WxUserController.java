@@ -1,9 +1,11 @@
-package cn.magic.web.board.controller;
+package cn.magic.web.wx_user.controller;
 
 import cn.magic.utils.ResultVo;
-import cn.magic.web.board.entity.Board;
+
 import cn.magic.web.board.entity.BoardParam;
-import cn.magic.web.board.service.BoardService;
+
+import cn.magic.web.wx_user.entity.WxUser;
+import cn.magic.web.wx_user.service.WxUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -12,15 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/board")
-public class BoardController {
+@RequestMapping("/api/wxUser")
+public class WxUserController {
     @Autowired
-    BoardService boardService;
+    WxUserService wxUserService;
 
     //新增
     @PostMapping
-    public ResultVo add(@RequestBody Board board) {
-        if (boardService.save(board)) {
+    public ResultVo add(@RequestBody WxUser wxUser) {
+        if (wxUserService.save(wxUser)) {
             return ResultVo.success("新增成功!");
         }
         return ResultVo.error("新增失败!");
@@ -28,8 +30,8 @@ public class BoardController {
 
     //编辑
     @PutMapping
-    public ResultVo edit(@RequestBody Board board) {
-        if (boardService.updateById(board)) {
+    public ResultVo edit(@RequestBody WxUser wxUser) {
+        if (wxUserService.updateById(wxUser)) {
             return ResultVo.success("编辑成功!");
         }
         return ResultVo.error("编辑失败!");
@@ -38,7 +40,7 @@ public class BoardController {
     //删除
     @DeleteMapping("/{id}")
     public ResultVo delete(@PathVariable("id") Long id) {
-        if (boardService.removeById(id)) {
+        if (wxUserService.removeById(id)) {
             return ResultVo.success("删除成功!");
         }
         return ResultVo.error("删除失败!");
@@ -47,15 +49,15 @@ public class BoardController {
     @GetMapping("/list")
     public ResultVo getAllList(BoardParam param){
         //构造分页对象
-        IPage<Board> page = new Page<>(param.getCurPage(), param.getPageSize());
+        IPage<WxUser> page = new Page<>(param.getCurPage(), param.getPageSize());
         //构造查询条件
-        QueryWrapper<Board> query = new QueryWrapper<>();
+        QueryWrapper<WxUser> query = new QueryWrapper<>();
         // 使用 Lambda 表达式构造查询条件
         if (StringUtils.isNotEmpty(param.getName())) { //如果查询的参数Username有值，则进行模糊查找
-            query.lambda().like(Board::getName, param.getName());
+            query.lambda().like(WxUser::getUsername, param.getName());
         }
         //查询
-        IPage<Board> list = boardService.page(page, query);
+        IPage<WxUser> list = wxUserService.page(page, query);
         return ResultVo.success("查询成功", list);
     }
 
