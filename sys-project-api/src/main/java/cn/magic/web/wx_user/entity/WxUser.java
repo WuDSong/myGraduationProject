@@ -14,7 +14,7 @@ public class WxUser {
     @TableId(type = IdType.AUTO)
     private Long userId;
     private String username;
-    private String passwordHash;
+    private String password;
     private String email;
     private String avatarUrl;
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")

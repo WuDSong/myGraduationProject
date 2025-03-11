@@ -26,6 +26,14 @@ public class SysUserController {
     //新增
     @PostMapping
     public ResultVo add(@RequestBody SysUser sysUser) {
+        //判断用户是否被占用
+        QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(SysUser::getUsername, sysUser.getUsername());
+        SysUser user = sysUserService.getOne(wrapper);
+        if (user != null) {
+            return ResultVo.error("用户被占用！重新填写！");
+//            return ResultVo.error();
+        }
         if (sysUserService.save(sysUser)) {
             return ResultVo.success("新增成功!");
         }
