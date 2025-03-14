@@ -57,6 +57,19 @@ public class SysUserController {
         }
         return ResultVo.error("删除失败!");
     }
+    //判断用户是否被占用
+    @GetMapping("/isOccupied/{username}")
+    public ResultVo isOccupied(@PathVariable("username") String username){
+
+
+        QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(SysUser::getUsername, username);
+        SysUser user = sysUserService.getOne(wrapper);
+        if (user != null) {
+            return ResultVo.success("用户被占用！重新填写！",true);
+        }
+        return ResultVo.success("用户没有被占用",false);
+    }
 
     //列表和查找
     @GetMapping("/getList")
@@ -84,6 +97,8 @@ public class SysUserController {
         return ResultVo.success("查询成功", list);
     }
 
+
+    //测试函数
     @GetMapping("/getAllList")
     public ResultVo getAllList() {
         IPage<SysUser> page = new Page<>(1, 10);

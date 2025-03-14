@@ -20,6 +20,8 @@ public class BoardController {
     //新增
     @PostMapping
     public ResultVo add(@RequestBody Board board) {
+        if(board.getIcon().equals(""))
+            board.setIcon(null);
         if (boardService.save(board)) {
             return ResultVo.success("新增成功!");
         }
@@ -57,6 +59,17 @@ public class BoardController {
         //查询
         IPage<Board> list = boardService.page(page, query);
         return ResultVo.success("查询成功", list);
+    }
+    //判断是否被占用
+    @GetMapping("/isOccupied/{boardName}")
+    public ResultVo isOccupied(@PathVariable("boardName") String name){
+        QueryWrapper<Board> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(Board::getName, name);
+        Board board = boardService.getOne(wrapper);
+        if (board != null) {
+            return ResultVo.success("被占用！重新填写！",true);
+        }
+        return ResultVo.success("没有被占用",false);
     }
 
 }

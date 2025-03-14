@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0db92583-e6f6-41c2-b976-cb1e027c2f18" name="Changes" comment="完成微信用户的增删改查">
+    <list default="true" id="0db92583-e6f6-41c2-b976-cb1e027c2f18" name="Changes" comment="完成微信用户新增&amp;&amp;注册">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/controller/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/entity/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/entity/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_user/controller/SysUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_user/controller/SysUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/controller/WxUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/controller/WxUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/entity/WxUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/entity/WxUser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,30 +48,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ApiPost:METDOD_SEND_RECORD:sys-project-api": "{\"/api/sysUser/getList\":[{\"url\":\"http://localhost:10086/api/sysUser/getList\",\"header\":[{\"is_checked\":1.0,\"type\":\"Text\",\"value\":\"\"}],\"query\":[{\"is_checked\":1.0,\"key\":\"curPage\",\"type\":\"Text\",\"not_null\":\"0\",\"field_type\":\"Long\",\"value\":\"1\"},{\"is_checked\":1.0,\"key\":\"pageSize\",\"type\":\"Text\",\"not_null\":\"0\",\"field_type\":\"Long\",\"value\":\"3\"},{\"is_checked\":1.0,\"key\":\"nickName\",\"type\":\"Text\",\"not_null\":\"0\",\"field_type\":\"String\",\"value\":\"\"},{\"is_checked\":1.0,\"type\":\"Text\",\"value\":\"\"}],\"requestBody\":\"\",\"responseBody\":\"{\\n  \\\"msg\\\": \\\"查询成功！！！\\\",\\n  \\\"code\\\": 200.0,\\n  \\\"data\\\": {\\n    \\\"records\\\": [\\n      {\\n        \\\"userId\\\": 1.0,\\n        \\\"userName\\\": \\\"admin\\\",\\n        \\\"password\\\": \\\"202cb962ac59075b964b07152d234b70\\\",\\n        \\\"nickName\\\": \\\"超级管理员1\\\",\\n        \\\"sex\\\": \\\"0\\\",\\n        \\\"phone\\\": \\\"17792709280\\\",\\n        \\\"status\\\": \\\"0\\\",\\n        \\\"isAdmin\\\": \\\"1\\\"\\n      },\\n      {\\n        \\\"userId\\\": 2.0,\\n        \\\"userName\\\": \\\"zhangsan\\\",\\n        \\\"password\\\": \\\"202cb962ac59075b964b07152d234b70\\\",\\n        \\\"nickName\\\": \\\"管理员\\\",\\n        \\\"sex\\\": \\\"1\\\",\\n        \\\"phone\\\": \\\"13389287896\\\",\\n        \\\"status\\\": \\\"0\\\",\\n        \\\"isAdmin\\\": null\\n      },\\n      {\\n        \\\"userId\\\": 3.0,\\n        \\\"userName\\\": \\\"xiaoma\\\",\\n        \\\"password\\\": \\\"202cb962ac59075b964b07152d234b70\\\",\\n        \\\"nickName\\\": \\\"普通会员\\\",\\n        \\\"sex\\\": \\\"0\\\",\\n        \\\"phone\\\": \\\"18823217890\\\",\\n        \\\"status\\\": \\\"0\\\",\\n        \\\"isAdmin\\\": null\\n      }\\n    ],\\n    \\\"total\\\": 6.0,\\n    \\\"size\\\": 3.0,\\n    \\\"current\\\": 1.0,\\n    \\\"orders\\\": [],\\n    \\\"optimizeCountSql\\\": true,\\n    \\\"searchCount\\\": true,\\n    \\\"maxLimit\\\": null,\\n    \\\"countId\\\": null,\\n    \\\"pages\\\": 2.0\\n  }\\n}\",\"selectedItem\":\"GET\",\"time\":{\"date\":{\"year\":2024.0,\"month\":12.0,\"day\":26.0},\"time\":{\"hour\":16.0,\"minute\":28.0,\"second\":19.0,\"nano\":8.280463E8}}},{\"url\":\"http://localhost:10086/api/sysUser/getList\",\"header\":[{\"is_checked\":1,\"type\":\"Text\",\"value\":\"\"}],\"query\":[{\"is_checked\":1,\"key\":\"curPage\",\"type\":\"Text\",\"not_null\":\"0\",\"field_type\":\"Long\",\"value\":\"1\"},{\"is_checked\":1,\"key\":\"pageSize\",\"type\":\"Text\",\"not_null\":\"0\",\"field_type\":\"Long\",\"value\":\"3\"},{\"is_checked\":1,\"key\":\"nickName\",\"type\":\"Text\",\"not_null\":\"0\",\"field_type\":\"String\",\"value\":\"员1\"},{\"is_checked\":1,\"type\":\"Text\",\"value\":\"\"}],\"requestBody\":\"\",\"responseBody\":\"{\\n  \\\"msg\\\": \\\"查询成功！！！\\\",\\n  \\\"code\\\": 200.0,\\n  \\\"data\\\": {\\n    \\\"records\\\": [\\n      {\\n        \\\"userId\\\": 1.0,\\n        \\\"userName\\\": \\\"admin\\\",\\n        \\\"password\\\": \\\"202cb962ac59075b964b07152d234b70\\\",\\n        \\\"nickName\\\": \\\"超级管理员1\\\",\\n        \\\"sex\\\": \\\"0\\\",\\n        \\\"phone\\\": \\\"17792709280\\\",\\n        \\\"status\\\": \\\"0\\\",\\n        \\\"isAdmin\\\": \\\"1\\\"\\n      }\\n    ],\\n    \\\"total\\\": 1.0,\\n    \\\"size\\\": 3.0,\\n    \\\"current\\\": 1.0,\\n    \\\"orders\\\": [],\\n    \\\"optimizeCountSql\\\": true,\\n    \\\"searchCount\\\": true,\\n    \\\"maxLimit\\\": null,\\n    \\\"countId\\\": null,\\n    \\\"pages\\\": 1.0\\n  }\\n}\",\"selectedItem\":\"GET\",\"time\":{\"date\":{\"year\":2024,\"month\":12,\"day\":26},\"time\":{\"hour\":16,\"minute\":28,\"second\":32,\"nano\":495122800}}}]}",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "jdk.selected.JAVA_MODULE": "21",
-    "last_opened_file_path": "E:/Mycode/汉云实习/安徽工业大学秀山校区/后端项目/sys-project",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "模块",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.startup.tasks",
-    "spring.configuration.checksum": "750aa3ea9484adbe04aeafc1ba66607d",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ApiPost:METDOD_SEND_RECORD:sys-project-api&quot;: &quot;{\&quot;/api/sysUser/getList\&quot;:[{\&quot;url\&quot;:\&quot;http://localhost:10086/api/sysUser/getList\&quot;,\&quot;header\&quot;:[{\&quot;is_checked\&quot;:1.0,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;value\&quot;:\&quot;\&quot;}],\&quot;query\&quot;:[{\&quot;is_checked\&quot;:1.0,\&quot;key\&quot;:\&quot;curPage\&quot;,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;not_null\&quot;:\&quot;0\&quot;,\&quot;field_type\&quot;:\&quot;Long\&quot;,\&quot;value\&quot;:\&quot;1\&quot;},{\&quot;is_checked\&quot;:1.0,\&quot;key\&quot;:\&quot;pageSize\&quot;,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;not_null\&quot;:\&quot;0\&quot;,\&quot;field_type\&quot;:\&quot;Long\&quot;,\&quot;value\&quot;:\&quot;3\&quot;},{\&quot;is_checked\&quot;:1.0,\&quot;key\&quot;:\&quot;nickName\&quot;,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;not_null\&quot;:\&quot;0\&quot;,\&quot;field_type\&quot;:\&quot;String\&quot;,\&quot;value\&quot;:\&quot;\&quot;},{\&quot;is_checked\&quot;:1.0,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;value\&quot;:\&quot;\&quot;}],\&quot;requestBody\&quot;:\&quot;\&quot;,\&quot;responseBody\&quot;:\&quot;{\\n  \\\&quot;msg\\\&quot;: \\\&quot;查询成功！！！\\\&quot;,\\n  \\\&quot;code\\\&quot;: 200.0,\\n  \\\&quot;data\\\&quot;: {\\n    \\\&quot;records\\\&quot;: [\\n      {\\n        \\\&quot;userId\\\&quot;: 1.0,\\n        \\\&quot;userName\\\&quot;: \\\&quot;admin\\\&quot;,\\n        \\\&quot;password\\\&quot;: \\\&quot;202cb962ac59075b964b07152d234b70\\\&quot;,\\n        \\\&quot;nickName\\\&quot;: \\\&quot;超级管理员1\\\&quot;,\\n        \\\&quot;sex\\\&quot;: \\\&quot;0\\\&quot;,\\n        \\\&quot;phone\\\&quot;: \\\&quot;17792709280\\\&quot;,\\n        \\\&quot;status\\\&quot;: \\\&quot;0\\\&quot;,\\n        \\\&quot;isAdmin\\\&quot;: \\\&quot;1\\\&quot;\\n      },\\n      {\\n        \\\&quot;userId\\\&quot;: 2.0,\\n        \\\&quot;userName\\\&quot;: \\\&quot;zhangsan\\\&quot;,\\n        \\\&quot;password\\\&quot;: \\\&quot;202cb962ac59075b964b07152d234b70\\\&quot;,\\n        \\\&quot;nickName\\\&quot;: \\\&quot;管理员\\\&quot;,\\n        \\\&quot;sex\\\&quot;: \\\&quot;1\\\&quot;,\\n        \\\&quot;phone\\\&quot;: \\\&quot;13389287896\\\&quot;,\\n        \\\&quot;status\\\&quot;: \\\&quot;0\\\&quot;,\\n        \\\&quot;isAdmin\\\&quot;: null\\n      },\\n      {\\n        \\\&quot;userId\\\&quot;: 3.0,\\n        \\\&quot;userName\\\&quot;: \\\&quot;xiaoma\\\&quot;,\\n        \\\&quot;password\\\&quot;: \\\&quot;202cb962ac59075b964b07152d234b70\\\&quot;,\\n        \\\&quot;nickName\\\&quot;: \\\&quot;普通会员\\\&quot;,\\n        \\\&quot;sex\\\&quot;: \\\&quot;0\\\&quot;,\\n        \\\&quot;phone\\\&quot;: \\\&quot;18823217890\\\&quot;,\\n        \\\&quot;status\\\&quot;: \\\&quot;0\\\&quot;,\\n        \\\&quot;isAdmin\\\&quot;: null\\n      }\\n    ],\\n    \\\&quot;total\\\&quot;: 6.0,\\n    \\\&quot;size\\\&quot;: 3.0,\\n    \\\&quot;current\\\&quot;: 1.0,\\n    \\\&quot;orders\\\&quot;: [],\\n    \\\&quot;optimizeCountSql\\\&quot;: true,\\n    \\\&quot;searchCount\\\&quot;: true,\\n    \\\&quot;maxLimit\\\&quot;: null,\\n    \\\&quot;countId\\\&quot;: null,\\n    \\\&quot;pages\\\&quot;: 2.0\\n  }\\n}\&quot;,\&quot;selectedItem\&quot;:\&quot;GET\&quot;,\&quot;time\&quot;:{\&quot;date\&quot;:{\&quot;year\&quot;:2024.0,\&quot;month\&quot;:12.0,\&quot;day\&quot;:26.0},\&quot;time\&quot;:{\&quot;hour\&quot;:16.0,\&quot;minute\&quot;:28.0,\&quot;second\&quot;:19.0,\&quot;nano\&quot;:8.280463E8}}},{\&quot;url\&quot;:\&quot;http://localhost:10086/api/sysUser/getList\&quot;,\&quot;header\&quot;:[{\&quot;is_checked\&quot;:1,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;value\&quot;:\&quot;\&quot;}],\&quot;query\&quot;:[{\&quot;is_checked\&quot;:1,\&quot;key\&quot;:\&quot;curPage\&quot;,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;not_null\&quot;:\&quot;0\&quot;,\&quot;field_type\&quot;:\&quot;Long\&quot;,\&quot;value\&quot;:\&quot;1\&quot;},{\&quot;is_checked\&quot;:1,\&quot;key\&quot;:\&quot;pageSize\&quot;,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;not_null\&quot;:\&quot;0\&quot;,\&quot;field_type\&quot;:\&quot;Long\&quot;,\&quot;value\&quot;:\&quot;3\&quot;},{\&quot;is_checked\&quot;:1,\&quot;key\&quot;:\&quot;nickName\&quot;,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;not_null\&quot;:\&quot;0\&quot;,\&quot;field_type\&quot;:\&quot;String\&quot;,\&quot;value\&quot;:\&quot;员1\&quot;},{\&quot;is_checked\&quot;:1,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;value\&quot;:\&quot;\&quot;}],\&quot;requestBody\&quot;:\&quot;\&quot;,\&quot;responseBody\&quot;:\&quot;{\\n  \\\&quot;msg\\\&quot;: \\\&quot;查询成功！！！\\\&quot;,\\n  \\\&quot;code\\\&quot;: 200.0,\\n  \\\&quot;data\\\&quot;: {\\n    \\\&quot;records\\\&quot;: [\\n      {\\n        \\\&quot;userId\\\&quot;: 1.0,\\n        \\\&quot;userName\\\&quot;: \\\&quot;admin\\\&quot;,\\n        \\\&quot;password\\\&quot;: \\\&quot;202cb962ac59075b964b07152d234b70\\\&quot;,\\n        \\\&quot;nickName\\\&quot;: \\\&quot;超级管理员1\\\&quot;,\\n        \\\&quot;sex\\\&quot;: \\\&quot;0\\\&quot;,\\n        \\\&quot;phone\\\&quot;: \\\&quot;17792709280\\\&quot;,\\n        \\\&quot;status\\\&quot;: \\\&quot;0\\\&quot;,\\n        \\\&quot;isAdmin\\\&quot;: \\\&quot;1\\\&quot;\\n      }\\n    ],\\n    \\\&quot;total\\\&quot;: 1.0,\\n    \\\&quot;size\\\&quot;: 3.0,\\n    \\\&quot;current\\\&quot;: 1.0,\\n    \\\&quot;orders\\\&quot;: [],\\n    \\\&quot;optimizeCountSql\\\&quot;: true,\\n    \\\&quot;searchCount\\\&quot;: true,\\n    \\\&quot;maxLimit\\\&quot;: null,\\n    \\\&quot;countId\\\&quot;: null,\\n    \\\&quot;pages\\\&quot;: 1.0\\n  }\\n}\&quot;,\&quot;selectedItem\&quot;:\&quot;GET\&quot;,\&quot;time\&quot;:{\&quot;date\&quot;:{\&quot;year\&quot;:2024,\&quot;month\&quot;:12,\&quot;day\&quot;:26},\&quot;time\&quot;:{\&quot;hour\&quot;:16,\&quot;minute\&quot;:28,\&quot;second\&quot;:32,\&quot;nano\&quot;:495122800}}}]}&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Mycode/汉云实习/安徽工业大学秀山校区/后端项目/sys-project&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.startup.tasks&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;750aa3ea9484adbe04aeafc1ba66607d&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Mycode\MyProject\myWebSite\sys-project\sys-project-api\src\main\java\cn\magic\web\video" />
@@ -209,7 +209,10 @@
       <workItem from="1741579835453" duration="2409000" />
       <workItem from="1741591232176" duration="627000" />
       <workItem from="1741609560508" duration="3161000" />
-      <workItem from="1741680222795" duration="8798000" />
+      <workItem from="1741680222795" duration="9042000" />
+      <workItem from="1741701361141" duration="87000" />
+      <workItem from="1741918338228" duration="2349000" />
+      <workItem from="1741939176684" duration="4558000" />
     </task>
     <task id="LOCAL-00001" summary="firstPush">
       <created>1741497062901</created>
@@ -225,7 +228,14 @@
       <option name="project" value="LOCAL" />
       <updated>1741688214292</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="完成微信用户新增&amp;&amp;注册">
+      <created>1741701178496</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1741701178496</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -236,7 +246,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -248,7 +270,8 @@
     </ignored-roots>
     <MESSAGE value="firstPush" />
     <MESSAGE value="完成微信用户的增删改查" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成微信用户的增删改查" />
+    <MESSAGE value="完成微信用户新增&amp;&amp;注册" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成微信用户新增&amp;&amp;注册" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -13,5 +13,5 @@ public class Board {
     private String name;
     private String icon;
     private String description;
-    private String sortOrder;
+    private Long sortOrder;
 }
