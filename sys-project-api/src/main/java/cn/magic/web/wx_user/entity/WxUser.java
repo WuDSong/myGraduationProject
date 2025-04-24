@@ -22,4 +22,5 @@ public class WxUser {
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date lastLogin;
     private String status;
+    private String phone;
 }

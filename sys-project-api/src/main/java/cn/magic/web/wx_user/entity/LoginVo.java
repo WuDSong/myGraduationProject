@@ -7,5 +7,6 @@ public class LoginVo {
     private Long userId;
     private String email;
     private String username;
-    private String token;
+    private String accessToken;
+    private String refreshToken;
 }

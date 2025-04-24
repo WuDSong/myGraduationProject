@@ -1,6 +1,7 @@
 package cn.magic.web.wx_user.controller;
 
 import cn.magic.utils.ResultVo;
+import cn.magic.web.wx_user.entity.LoginVo;
 import cn.magic.web.wx_user.entity.WxUser;
 import cn.magic.web.wx_user.entity.WxUserParam;
 import cn.magic.web.wx_user.service.WxUserService;
@@ -32,36 +33,47 @@ public class WxUserController {
         //密码加密
         String pwd = DigestUtils.md5DigestAsHex(wxUser.getPassword().getBytes());
         wxUser.setPassword(pwd);
+        //数据处理
+        if(wxUser.getAvatarUrl().equals(""))
+            wxUser.setAvatarUrl(null);
         if (wxUserService.save(wxUser)) {
             return ResultVo.success("注册成功!");
         }
         return ResultVo.error("注册失败!");
     }
 
-    //登录
-//    @PostMapping("/login")
-//    public ResultVo login(@RequestBody WxUser user){
-//        //构造查询条件
-//        QueryWrapper<WxUser> query = new QueryWrapper<>();
-//
-//        query.lambda().eq(WxUser::getUsername,user.getUsername()).eq(WxUser::getPassword,
-//                DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
-//        WxUser wxUser = wxUserService.getOne(query);
-//        if(wxUser != null){
-//            if(wxUser.getStatus().equals("1")){
-//                return ResultVo.error("您的账户被停用，请联系管理员!");
-//            }
-//            //返回成功的数据
-//            LoginVo vo = new LoginVo();
-//            vo.setNickName(wxUser.getNickName());
-//            vo.setPhone(wxUser.getPhone());
-//            vo.setUserId(wxUser.getUserId());
-//            return ResultVo.success("登录成功",vo);
-//        }
-//        return ResultVo.error("用户密码或密码错误!");
-//
-//    }
-
+    // 登录
+    @PostMapping("/login")
+    public ResultVo login(@RequestBody WxUser user){
+        //构造查询条件
+        QueryWrapper<WxUser> query = new QueryWrapper<>();
+        query.lambda().eq(WxUser::getUsername,user.getUsername()).eq(WxUser::getPassword,
+                DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
+        WxUser wxUser = wxUserService.getOne(query);
+        if(wxUser != null){
+            if(wxUser.getStatus().equals("1")){
+                return ResultVo.error("您的账户被停用，请联系管理员!");
+            }
+            //返回成功的数据(不直接返回user)
+            LoginVo vo = new LoginVo();
+            vo.setUsername(wxUser.getUsername());
+            vo.setEmail(wxUser.getEmail());
+            vo.setUserId(wxUser.getUserId());
+            return ResultVo.success("登录成功",vo);
+        }
+        return ResultVo.error("用户密码或密码错误!");
+    }
+    //判断用户是否被占用
+    @GetMapping("/isOccupied/{username}")
+    public ResultVo isOccupied(@PathVariable("username") String username){
+        QueryWrapper<WxUser> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(WxUser::getUsername, username);
+        WxUser wxUser=wxUserService.getOne(wrapper);
+        if (wxUser != null) {
+            return ResultVo.success("用户被占用！重新填写！",true);
+        }
+        return ResultVo.success("用户没有被占用",false);
+    }
 
     //编辑
     @PutMapping

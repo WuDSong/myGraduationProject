@@ -4,11 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0db92583-e6f6-41c2-b976-cb1e027c2f18" name="Changes" comment="完成微信用户新增&amp;&amp;注册">
+    <list default="true" id="0db92583-e6f6-41c2-b976-cb1e027c2f18" name="Changes" comment="1.board的sort改成数字类型，否则前端报错，默认图片使用。2.判断是否被占用。">
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/topic/controller/TopicController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/topic/entity/Topic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/topic/entity/TopicParam.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/topic/mapper/TopicMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/topic/service/TopicService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/topic/service/impl/TopicServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/resources/mapper/PostMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/resources/mapper/TopicMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/SysProjectApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/SysProjectApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/controller/BoardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/entity/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/entity/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_user/controller/SysUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_user/controller/SysUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/image/controller/ImageUploadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/image/controller/ImageUploadController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/controller/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/mapper/PostMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/mapper/PostMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/PostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/impl/PostServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/impl/PostServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_menu/controller/SysMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_menu/controller/SysMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/controller/WxUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/controller/WxUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/entity/LoginVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/entity/LoginVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/entity/WxUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/entity/WxUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,9 +38,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="spring-beans.schema" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="spring-beans.schema" />
       </list>
     </option>
   </component>
@@ -59,14 +79,14 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Mycode/汉云实习/安徽工业大学秀山校区/后端项目/sys-project&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Mycode/MyGraduationProject/back-endServer/sys-project-api/src/main/java/cn/magic/web&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;全局库&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.startup.tasks&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;750aa3ea9484adbe04aeafc1ba66607d&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -74,6 +94,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Mycode\MyGraduationProject\back-endServer\sys-project-api\src\main\java\cn\magic\web" />
       <recent name="E:\Mycode\MyProject\myWebSite\sys-project\sys-project-api\src\main\java\cn\magic\web\video" />
       <recent name="E:\Mycode\汉云实习\安徽工业大学秀山校区\后端项目\sys-project\sys-project-api\src\main\resources" />
       <recent name="E:\Mycode\汉云实习\安徽工业大学秀山校区\后端项目\sys-project\sys-project-api\src\main\java\cn\magic\web\sys_user\mapper" />
@@ -83,7 +104,20 @@
       <recent name="E:\Mycode\汉云实习\安徽工业大学秀山校区\后端项目\sys-project\sys-project-api\src\main\java\cn\magic\web\goods_category\mapper" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.SysProjectApplication">
+    <configuration name="ImgChecker" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cn.magic.utils.ImgChecker" />
+      <module name="sys-project-com" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cn.magic.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SysProjectApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="sys-project-api" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="cn.magic.SysProjectApplication" />
@@ -100,6 +134,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.SysProjectApplication" />
+        <item itemvalue="应用程序.ImgChecker" />
       </list>
     </recent_temporary>
   </component>
@@ -212,7 +247,59 @@
       <workItem from="1741680222795" duration="9042000" />
       <workItem from="1741701361141" duration="87000" />
       <workItem from="1741918338228" duration="2349000" />
-      <workItem from="1741939176684" duration="4558000" />
+      <workItem from="1741939176684" duration="4622000" />
+      <workItem from="1741959874575" duration="3303000" />
+      <workItem from="1742023587118" duration="1416000" />
+      <workItem from="1742042061415" duration="2349000" />
+      <workItem from="1742052054431" duration="652000" />
+      <workItem from="1742059487707" duration="247000" />
+      <workItem from="1742099185421" duration="7000" />
+      <workItem from="1742105162810" duration="3625000" />
+      <workItem from="1742126381585" duration="2489000" />
+      <workItem from="1742141838307" duration="116000" />
+      <workItem from="1742186719836" duration="5950000" />
+      <workItem from="1742202169483" duration="605000" />
+      <workItem from="1742211303330" duration="606000" />
+      <workItem from="1742283223100" duration="944000" />
+      <workItem from="1742300627229" duration="612000" />
+      <workItem from="1742308061607" duration="609000" />
+      <workItem from="1742371972352" duration="1224000" />
+      <workItem from="1742455510216" duration="1479000" />
+      <workItem from="1742476395561" duration="665000" />
+      <workItem from="1742489201651" duration="5000" />
+      <workItem from="1742722139405" duration="1655000" />
+      <workItem from="1742724283236" duration="1342000" />
+      <workItem from="1742731449472" duration="615000" />
+      <workItem from="1742780706191" duration="392000" />
+      <workItem from="1742808778583" duration="610000" />
+      <workItem from="1742818252094" duration="611000" />
+      <workItem from="1742882273122" duration="2177000" />
+      <workItem from="1742989707630" duration="282000" />
+      <workItem from="1743301218673" duration="619000" />
+      <workItem from="1743338350631" duration="615000" />
+      <workItem from="1743428213549" duration="613000" />
+      <workItem from="1743434829922" duration="245000" />
+      <workItem from="1743435761547" duration="87000" />
+      <workItem from="1744269570500" duration="1862000" />
+      <workItem from="1744354444409" duration="1192000" />
+      <workItem from="1744704873320" duration="2723000" />
+      <workItem from="1744722434610" duration="3673000" />
+      <workItem from="1744770253284" duration="2492000" />
+      <workItem from="1744788345451" duration="1213000" />
+      <workItem from="1744896922069" duration="605000" />
+      <workItem from="1744944319818" duration="11791000" />
+      <workItem from="1745048406216" duration="6128000" />
+      <workItem from="1745132645167" duration="5088000" />
+      <workItem from="1745199683562" duration="713000" />
+      <workItem from="1745217036196" duration="1219000" />
+      <workItem from="1745304482585" duration="727000" />
+      <workItem from="1745327219622" duration="616000" />
+      <workItem from="1745375184882" duration="1207000" />
+      <workItem from="1745395193163" duration="2545000" />
+      <workItem from="1745407604932" duration="3261000" />
+      <workItem from="1745417464035" duration="2358000" />
+      <workItem from="1745460706044" duration="5357000" />
+      <workItem from="1745480034352" duration="6300000" />
     </task>
     <task id="LOCAL-00001" summary="firstPush">
       <created>1741497062901</created>
@@ -235,7 +322,14 @@
       <option name="project" value="LOCAL" />
       <updated>1741701178496</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="1.board的sort改成数字类型，否则前端报错，默认图片使用。2.判断是否被占用。">
+      <created>1741950737698</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1741950737698</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -271,7 +365,8 @@
     <MESSAGE value="firstPush" />
     <MESSAGE value="完成微信用户的增删改查" />
     <MESSAGE value="完成微信用户新增&amp;&amp;注册" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成微信用户新增&amp;&amp;注册" />
+    <MESSAGE value="1.board的sort改成数字类型，否则前端报错，默认图片使用。2.判断是否被占用。" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.board的sort改成数字类型，否则前端报错，默认图片使用。2.判断是否被占用。" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

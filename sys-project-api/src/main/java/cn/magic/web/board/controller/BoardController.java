@@ -11,15 +11,18 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/board")
 public class BoardController {
     @Autowired
-    BoardService boardService;
+    private BoardService boardService;
 
     //新增
     @PostMapping
     public ResultVo add(@RequestBody Board board) {
+        //当字段值为空字符串时，MyBatis-Plus会将其作为有效值插入，覆盖数据库默认值。需确保未传递的字段保持为 null 而非空字符串。
         if(board.getIcon().equals(""))
             board.setIcon(null);
         if (boardService.save(board)) {
@@ -45,9 +48,9 @@ public class BoardController {
         }
         return ResultVo.error("删除失败!");
     }
-
+    //分页获取
     @GetMapping("/list")
-    public ResultVo getAllList(BoardParam param){
+    public ResultVo getList(BoardParam param){
         //构造分页对象
         IPage<Board> page = new Page<>(param.getCurPage(), param.getPageSize());
         //构造查询条件
@@ -58,6 +61,12 @@ public class BoardController {
         }
         //查询
         IPage<Board> list = boardService.page(page, query);
+        return ResultVo.success("查询成功", list);
+    }
+    //获取所有版区
+    @GetMapping("/getAllList")
+    public ResultVo getAll(){
+        List<Board> list = boardService.list();
         return ResultVo.success("查询成功", list);
     }
     //判断是否被占用

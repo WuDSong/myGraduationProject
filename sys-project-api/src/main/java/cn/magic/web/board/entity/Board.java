@@ -14,4 +14,6 @@ public class Board {
     private String icon;
     private String description;
     private Long sortOrder;
+    private String status;
+    private Boolean isDeleted;
 }

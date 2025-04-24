@@ -1,0 +1,27 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.magic.web.topic.mapper.TopicMapper">
+    <select id="getTopicsByPostId" resultType="cn.magic.web.topic.entity.Topic">
+        SELECT
+        t.topic_id AS topicId,
+        t.name AS topicName,
+        t.description AS topicDescription,
+        t.icon AS topicIcon,
+        t.status,
+        t.usage_count AS usageCount,
+        t.created_at AS createdAt,
+        t.updated_at AS updatedAt,
+        t.is_deleted AS isDeleted
+        FROM
+        topic t
+        INNER JOIN
+        post_topic pt ON t.topic_id = pt.topic_id
+        WHERE
+        pt.post_id = #{postId}
+        AND
+        t.is_deleted = 0
+    </select>
+    <!--    排除已删除的话题 ,别名匹配 -->
+</mapper>

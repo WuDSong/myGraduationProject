@@ -1,0 +1,17 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.magic.web.post.mapper.PostMapper">
+    <insert id="insertPostTopic">
+        INSERT INTO post_topic (post_id, topic_id)
+        VALUES
+        <foreach collection="topicIds" item="topicId" separator=",">
+            (#{postId}, #{topicId})
+        </foreach>
+    </insert>
+    <!-- 删除 post_topic 表中与指定 post_id 关联的记录 -->
+    <delete id="deletePostTopicByPostId">
+        DELETE FROM post_topic
+        WHERE post_id = #{postId}
+    </delete>
+</mapper>
