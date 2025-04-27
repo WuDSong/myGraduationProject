@@ -4,20 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0db92583-e6f6-41c2-b976-cb1e027c2f18" name="Changes" comment="board增加软删除和状态字样，新增了openCV检测图片，修改post的控制流程，对post进行了更加严格的处理。实现topic相关的增删改查和占用。对小程序注册和board等等进行名字检测是否占用。">
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/banner/controller/BannerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/banner/entity/Banner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/banner/entity/BannerParam.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/banner/mapper/BannerMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/banner/service/BannerService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/banner/service/impl/BannerServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_menu/entity/MakeMenuTreeUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_menu/entity/MenuVo.java" afterDir="false" />
+    <list default="true" id="0db92583-e6f6-41c2-b976-cb1e027c2f18" name="Changes" comment="完成banner相关接口,在postApi增加分页查找post list,实现构建系统菜单树和路由树。">
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/image/controller/CaptchaController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/PostParam.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_user/entity/LoginVo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_user/entity/SysUserLoginParam.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/controller/BoardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/controller/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_menu/controller/SysMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_menu/controller/SysMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_menu/entity/SysMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_menu/entity/SysMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_user/controller/SysUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_user/controller/SysUserController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -298,7 +292,9 @@
       <workItem from="1745635676422" duration="11157000" />
       <workItem from="1745664675355" duration="2044000" />
       <workItem from="1745717479894" duration="5436000" />
-      <workItem from="1745735262131" duration="2739000" />
+      <workItem from="1745735262131" duration="4234000" />
+      <workItem from="1745755862454" duration="5726000" />
+      <workItem from="1745763246837" duration="1039000" />
     </task>
     <task id="LOCAL-00001" summary="firstPush">
       <created>1741497062901</created>
@@ -335,7 +331,14 @@
       <option name="project" value="LOCAL" />
       <updated>1745488683780</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="完成banner相关接口,在postApi增加分页查找post list,实现构建系统菜单树和路由树。">
+      <created>1745743178148</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1745743178148</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -373,7 +376,8 @@
     <MESSAGE value="完成微信用户新增&amp;&amp;注册" />
     <MESSAGE value="1.board的sort改成数字类型，否则前端报错，默认图片使用。2.判断是否被占用。" />
     <MESSAGE value="board增加软删除和状态字样，新增了openCV检测图片，修改post的控制流程，对post进行了更加严格的处理。实现topic相关的增删改查和占用。对小程序注册和board等等进行名字检测是否占用。" />
-    <option name="LAST_COMMIT_MESSAGE" value="board增加软删除和状态字样，新增了openCV检测图片，修改post的控制流程，对post进行了更加严格的处理。实现topic相关的增删改查和占用。对小程序注册和board等等进行名字检测是否占用。" />
+    <MESSAGE value="完成banner相关接口,在postApi增加分页查找post list,实现构建系统菜单树和路由树。" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成banner相关接口,在postApi增加分页查找post list,实现构建系统菜单树和路由树。" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

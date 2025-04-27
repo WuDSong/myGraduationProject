@@ -35,7 +35,6 @@ public class PostController {
     private PostService postService;
     @Autowired
     private BoardService boardService;
-
     @Autowired
     private TopicService topicService;
 
