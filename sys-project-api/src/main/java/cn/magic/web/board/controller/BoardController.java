@@ -63,7 +63,7 @@ public class BoardController {
         IPage<Board> list = boardService.page(page, query);
         return ResultVo.success("查询成功", list);
     }
-    //获取所有版区
+    //获取所有
     @GetMapping("/getAllList")
     public ResultVo getAll(){
         List<Board> list = boardService.list();

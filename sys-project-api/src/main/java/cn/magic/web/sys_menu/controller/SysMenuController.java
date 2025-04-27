@@ -1,6 +1,8 @@
 package cn.magic.web.sys_menu.controller;
 
 import cn.magic.utils.ResultVo;
+import cn.magic.web.sys_menu.entity.MakeMenuTreeUtil;
+import cn.magic.web.sys_menu.entity.MenuVo;
 import cn.magic.web.sys_menu.entity.SysMenu;
 import cn.magic.web.sys_menu.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +17,11 @@ public class SysMenuController {
     //新增
     @PostMapping
     public ResultVo add(@RequestBody SysMenu sysMenu) {
-        //当字段值为空字符串时，MyBatis-Plus会将其作为有效值插入，覆盖数据库默认值。需确保未传递的字段保持为 null 而非空字符串。
-        if(sysMenu.getIcon().equals(""))
+        if(sysMenu.getMenuType()==2){ //按钮类型
             sysMenu.setIcon(null);
+            sysMenu.setPath(null);
+            sysMenu.setSort(null);
+        }
         if (sysMenuService.save(sysMenu)) {
             return ResultVo.success("新增成功!");
         }
@@ -46,6 +50,20 @@ public class SysMenuController {
     public ResultVo getAllList(){
         List<SysMenu> list=sysMenuService.list();
         return ResultVo.success("查询所有列表成功",list);
+    }
+
+    @GetMapping("/tree")
+    public ResultVo getTree(){
+        List<SysMenu> list=sysMenuService.list();
+        List<SysMenu> tree=MakeMenuTreeUtil.buildMenuTree(list);
+        return ResultVo.success("查询所有列表成功",tree);
+    }
+
+    @GetMapping("/routeTree")
+    public ResultVo getRouteTree(){
+        List<SysMenu> list=sysMenuService.list();
+        List<MenuVo> tree=MakeMenuTreeUtil.makeRouter(list,0);
+        return ResultVo.success("查询所有列表成功",tree);
     }
 
 }

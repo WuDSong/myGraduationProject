@@ -2,13 +2,17 @@ package cn.magic.web.post.controller;
 
 import cn.magic.utils.ImgChecker;
 import cn.magic.utils.ResultVo;
+import cn.magic.web.banner.entity.Banner;
 import cn.magic.web.board.entity.Board;
 import cn.magic.web.board.service.BoardService;
 import cn.magic.web.post.entity.Post;
+import cn.magic.web.post.entity.PostParam;
 import cn.magic.web.post.service.PostService;
 import cn.magic.web.topic.entity.Topic;
 import cn.magic.web.topic.service.TopicService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -124,6 +128,8 @@ public class PostController {
     @GetMapping("/{postId}")
     public ResultVo getPostById(@PathVariable long postId) {
         Post post= postService.getById(postId);
+        if(post==null)
+            return ResultVo.error("话题不存在");
         post.setTopicList(topicService.getTopicsByPostId(postId));
         return ResultVo.success("查找成功",post);
     }
@@ -135,13 +141,30 @@ public class PostController {
         return ResultVo.success("查询成功",list);
     }
 
-    // 分页查询帖子，不带话题
+    // 分页查询帖子，不带话题 //http://localhost:12345/api/post/page?current=1&&size=5
     @GetMapping("/page")
-    public Page<Post> getPostsByPage(@RequestParam(defaultValue = "1") long current,
-                                      @RequestParam(defaultValue = "10") long size) {
+    public Page<Post> getPostsByPage(@RequestParam(defaultValue = "1") long current,@RequestParam(defaultValue = "10") long size) {
+//        emm 这种写法,可以避免每次请求都要编写一个类
         Page<Post> page = new Page<>(current, size);
         return postService.page(page);
     }
+
+    // 分页查询帖子，不带话题
+    @GetMapping("/list")
+    public ResultVo getPostsByPage(PostParam postParam) {
+        //构造分页对象
+        IPage<Post> page = new Page<>(postParam.getCurPage(),postParam.getPageSize());
+        //构造查询条件
+        QueryWrapper<Post> query = new QueryWrapper<>();
+        // 使用 Lambda 表达式构造查询条件
+        if (StringUtils.isNotEmpty(postParam.getTitle())) { //如果查询的参数有值，则进行模糊查找
+            query.lambda().like(Post::getTitle, postParam.getTitle());
+        }
+        //查询
+        IPage<Post> list = postService.page(page, query);
+        return ResultVo.success("查询成功", list);
+    }
+
 
     // 根据作者ID查询帖子，不带话题
     @GetMapping("/author/{authorId}")
@@ -151,5 +174,7 @@ public class PostController {
         return postService.list(wrapper);
     }
 
+
+    // 分页查找相同版区的帖子
 
 }
