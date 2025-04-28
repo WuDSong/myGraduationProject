@@ -35,8 +35,8 @@ public class TopicController {
 
     //编辑
     @PutMapping
-    public ResultVo edit(@RequestBody Topic board) {
-        if (topicService.updateById(board)) {
+    public ResultVo edit(@RequestBody Topic topic) {
+        if (topicService.updateById(topic)) {
             return ResultVo.success("编辑成功!");
         }
         return ResultVo.error("编辑失败!");

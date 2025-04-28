@@ -1,0 +1,38 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.magic.web.role.mapper.RoleMapper">
+    <select id="getRoleListWithUserCount" resultType="cn.magic.web.role.entity.Role">
+        SELECT
+        r.rid,
+        r.role_name AS roleName,
+        r.role_key AS roleKey,
+        r.description,
+        r.create_time AS createTime,
+        COUNT(u.userid) AS userCount
+        FROM
+        role r
+        LEFT JOIN
+        sys_user u ON r.rid = u.rid
+        <where>
+            <if test="roleName != null and roleName != ''">
+                r.role_name LIKE CONCAT('%', #{roleName}, '%')
+            </if>
+        </where>
+        GROUP BY
+        r.rid
+    </select>
+
+    <select id="getUserCountByRid" resultType="Long">
+        SELECT
+        COUNT(u.userid)
+        FROM
+        role r
+        LEFT JOIN
+        sys_user u ON r.rid = u.rid
+        WHERE  r.rid = #{rid}
+        GROUP BY
+        r.rid
+    </select>
+</mapper>
