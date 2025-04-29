@@ -1,0 +1,11 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.magic.web.sys_menu.mapper.SysMenuMapper">
+    <select id="getMenuByUserId" resultType="cn.magic.web.sys_menu.entity.SysMenu">
+        SELECT m.*
+        FROM role_menu rm
+        JOIN sys_menu m ON rm.mid = m.mid
+        WHERE rm.rid = #{rid};
+    </select>
+</mapper>

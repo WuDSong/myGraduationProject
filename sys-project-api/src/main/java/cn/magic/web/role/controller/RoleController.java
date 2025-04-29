@@ -1,6 +1,7 @@
 package cn.magic.web.role.controller;
 
 import cn.magic.utils.ResultVo;
+import cn.magic.web.role.entity.AssignMenuParams;
 import cn.magic.web.role.entity.Role;
 import cn.magic.web.role.service.RoleService;
 import cn.magic.web.sys_user.entity.SysUser;
@@ -65,5 +66,19 @@ public class RoleController {
         return role != null
                 ? ResultVo.success("查询成功", role)
                 : ResultVo.error("标签不存在!", HttpStatus.NOT_FOUND);
+    }
+    @Transactional
+    @PostMapping("/assignMenu")
+    public ResultVo assignMenu(@RequestBody AssignMenuParams params) {
+        // 检查
+        Role role = roleService.getById(params.getRid());
+        if (role == null)
+            return ResultVo.error("要查找的角色不存在");
+        if (role.getRoleKey().equals("SUPER_ADMIN")||role.getRoleKey().equals("COMMON_ADMIN"))
+            return ResultVo.error("管理员拥有所有权限,无需分配");
+        if(roleService.saveMenu(params)){
+            return ResultVo.success("为角色分派菜单成功");
+        }
+        return ResultVo.error("为角色分派菜单失败");
     }
 }

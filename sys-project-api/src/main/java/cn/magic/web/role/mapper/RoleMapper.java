@@ -10,4 +10,8 @@ public interface RoleMapper extends BaseMapper<Role> {
     List<Role> getRoleListWithUserCount(@Param("roleName")String roleName);
 
     Long getUserCountByRid(@Param("rid")Long rid);
+//    删除所有角色菜单
+    boolean delRoleAllMenu(@Param("rid")Long rid);
+// 一次添加多个菜单
+    boolean addRoleMenus(@Param("rid")Long rid,@Param("menuIds") List<Integer> menuIds);
 }

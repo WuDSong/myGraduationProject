@@ -35,4 +35,15 @@
         GROUP BY
         r.rid
     </select>
+
+    <delete id="delRoleAllMenu">
+        DELETE FROM role_menu WHERE rid = #{rid};
+    </delete>
+    
+    <insert id="addRoleMenus">
+        INSERT INTO role_menu (rid, mid) VALUES
+        <foreach collection="menuIds" item="mid" separator=",">
+            (#{rid}, #{mid})
+        </foreach>;
+    </insert>
 </mapper>
