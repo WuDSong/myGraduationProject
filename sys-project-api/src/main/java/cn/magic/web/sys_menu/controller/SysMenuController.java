@@ -79,7 +79,7 @@ public class SysMenuController {
     @GetMapping("/routeTree")
     public ResultVo getRouteTree() {
         List<SysMenu> list = sysMenuService.list();
-        List<MenuVo> tree = MakeMenuTreeUtil.makeRouter(list, 0);
+        List<MenuVo> tree = MakeMenuTreeUtil.makeRouterTree(list, 0);
         return ResultVo.success("查询所有列表成功", tree);
     }
 
@@ -107,11 +107,11 @@ public class SysMenuController {
             currentUserMenuList = sysMenuService.list();
         } else {
             // 根据用户角色查询
-            currentUserMenuList = sysMenuService.getMenuByUserId(userRid);
+            currentUserMenuList = sysMenuService.getMenuByUserRoleId(userRid);
         }
         List<SysMenu> tree = MakeMenuTreeUtil.buildMenuTree(currentUserMenuList); //当前已经登录的用户的菜单树
         List<SysMenu> menuList = null;  //要查询的角色已经被分配的菜单
-        menuList = sysMenuService.getMenuByUserId(rid);
+        menuList = sysMenuService.getMenuByUserRoleId(rid);
         List<Integer> ids = new ArrayList<>();
         // 使用 Optional.ofNullable 方法来处理 menuByUserId 可能为 null 的情况
         // 如果 menuByUserId 为 null，则使用一个空的 ArrayList 替代

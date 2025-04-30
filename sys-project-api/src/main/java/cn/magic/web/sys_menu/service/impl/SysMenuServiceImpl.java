@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements SysMenuService {
     @Override
-    public List<SysMenu> getMenuByUserId(Long rid) {
+    public List<SysMenu> getMenuByUserRoleId(Long rid) {
         return this.baseMapper.getMenuByUserId(rid);
     }
 }

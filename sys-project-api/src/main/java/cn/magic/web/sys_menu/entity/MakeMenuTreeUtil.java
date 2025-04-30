@@ -1,7 +1,6 @@
 package cn.magic.web.sys_menu.entity;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class MakeMenuTreeUtil {
     // 转换为树形结构
@@ -30,7 +29,7 @@ public class MakeMenuTreeUtil {
         return new ArrayList<>(menuMap.values());
     }
 
-    public static List<MenuVo> makeRouter(List<SysMenu> menuList, Integer pid) {
+    public static List<MenuVo> makeRouterTree(List<SysMenu> menuList, Integer pid) {
         //构建存放路由数据的容器
         List<MenuVo> list = new ArrayList<>();
         Optional.ofNullable(menuList).orElse(new ArrayList<>())
@@ -43,7 +42,7 @@ public class MakeMenuTreeUtil {
                     router.setTitle(item.getMenuName());
                     router.setPath(item.getPath());
                     //设置children 递归调用：自己调用自己
-                    List<MenuVo> children = makeRouter(menuList,item.getMid());
+                    List<MenuVo> children = makeRouterTree(menuList,item.getMid());
                     router.setChildren(children);
                     list.add(router);
                 });

@@ -3,12 +3,14 @@ package cn.magic.web.sys_user.controller;
 import cn.magic.utils.ResultVo;
 import cn.magic.web.role.entity.Role;
 import cn.magic.web.role.service.RoleService;
-import cn.magic.web.sys_user.entity.SysUserLoginParam;
-import cn.magic.web.sys_user.entity.LoginVo;
-import cn.magic.web.sys_user.entity.SysUser;
-import cn.magic.web.sys_user.entity.SysUserParam;
+import cn.magic.web.sys_menu.entity.MakeMenuTreeUtil;
+import cn.magic.web.sys_menu.entity.MenuVo;
+import cn.magic.web.sys_menu.entity.SysMenu;
+import cn.magic.web.sys_menu.service.SysMenuService;
+import cn.magic.web.sys_user.entity.*;
 import cn.magic.web.sys_user.service.SysUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +21,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/sysUser")
@@ -28,6 +33,8 @@ public class SysUserController {
     private SysUserService sysUserService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private SysMenuService sysMenuService;
     private static final Logger logger = LoggerFactory.getLogger(SysUserController.class);
     //新增
     @PostMapping
@@ -138,10 +145,44 @@ public class SysUserController {
         if(user.getStatus().equals("0")){ //0 停用 1启用
             return ResultVo.error("账户被停用，请联系管理员!");
         }
+        // 查找菜单树
+        List<SysMenu> menuList = null;
+        if (StringUtils.isNotEmpty(user.getIsAdmin()) &&
+                "1".equals(user.getIsAdmin())) {
+            menuList = sysMenuService.list();
+        } else {
+            menuList = sysMenuService.getMenuByUserRoleId(user.getRid());
+        }
+        List<MenuVo> menuRouterTree = MakeMenuTreeUtil.makeRouterTree(menuList,0); //当前已经登录的用户的菜单树
+        // 生成codes
+        List<String> codeList = Optional.ofNullable(menuList).orElse(new ArrayList<>()).
+                stream().map(item -> item.getPerms()).collect(Collectors.toList());
         //返回登录信息
         LoginVo vo = new LoginVo();
         vo.setUserid(user.getUserid());
         vo.setUsername(user.getUsername());
+        vo.setRid(user.getRid());
+        vo.setMenuRouterTree(menuRouterTree);
+        vo.setCodeList(codeList);
         return ResultVo.success("登录成功",vo);
+    }
+
+    //修改密码
+    @PutMapping("/updatePassword")
+    public ResultVo updatePassword(@RequestBody UpdatePasswordParam param){
+        //验证原密码是否正确
+        SysUser user = sysUserService.getById(param.getUserId());
+        //原密码加密
+        String oldPassword =param.getOldPassword();
+        if(!user.getPassword().equals(oldPassword)){
+            return ResultVo.error("原密码不正确!");
+        }
+        UpdateWrapper<SysUser> query = new UpdateWrapper<>();
+        query.lambda().set(SysUser::getPassword,param.getPassword())
+                .eq(SysUser::getUserid,param.getUserId());
+        if(sysUserService.update(query)){
+            return ResultVo.success("修改成功!");
+        }
+        return ResultVo.error("修改失败！");
     }
 }
