@@ -68,6 +68,15 @@ public class BannerController {
         List<Banner> list = bannerService.list();
         return ResultVo.success("查询成功", list);
     }
+    // 查找有效的banner,查询小程序首页轮播图数据,且排序
+    @GetMapping("/getActiveBanner")
+    public ResultVo getActiveBanner(){
+        QueryWrapper<Banner> query = new QueryWrapper<>();
+        query.lambda().eq(Banner::getIsActive,"1") //上架状态
+                .orderByAsc(Banner::getSortOrder);
+        List<Banner> list = bannerService.list(query);
+        return ResultVo.success("查询成功",list);
+    }
 
     //判断是否被占用
     @GetMapping("/isOccupied/{bannerName}")

@@ -8,6 +8,7 @@ import cn.magic.web.board.service.BoardService;
 import cn.magic.web.post.entity.Post;
 import cn.magic.web.post.entity.PostParam;
 import cn.magic.web.post.service.PostService;
+import cn.magic.web.sys_menu.entity.MenuVo;
 import cn.magic.web.topic.entity.Topic;
 import cn.magic.web.topic.service.TopicService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -25,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/post")
@@ -48,7 +50,7 @@ public class PostController {
             String src = img.attr("src");
             if (ImgChecker.isValidImageUrl(src)) { // 验证URL合法性
                 urls.add(src);
-                if (urls.size() >= 3) break; // 只记录前三张
+//                if (urls.size() >= 3) break; // 只记录前三张
             }
         }
         return urls;
@@ -78,7 +80,7 @@ public class PostController {
         if(!boardExists){
             ResultVo.error("版区不存在或已被封禁");
         }
-        if(!checkTopicIds(post.getTopicIds())){
+        if(post.getTopicIds().size()>0&&!checkTopicIds(post.getTopicIds())){
             return ResultVo.error("话题不存在或已被封禁");
         }
         // 验证通过
@@ -133,22 +135,14 @@ public class PostController {
         return ResultVo.success("查找成功",post);
     }
 
-    // 查询所有帖子，不带话题
+    // 查询所有帖子(无论状态)，不带话题
     @GetMapping("/allList")
     public ResultVo getAllPosts() {
         List <Post> list= postService.list();
         return ResultVo.success("查询成功",list);
     }
 
-    // 分页查询帖子，不带话题 //http://localhost:12345/api/post/page?current=1&&size=5
-    @GetMapping("/page")
-    public Page<Post> getPostsByPage(@RequestParam(defaultValue = "1") long current,@RequestParam(defaultValue = "10") long size) {
-//        emm 这种写法,可以避免每次请求都要编写一个类
-        Page<Post> page = new Page<>(current, size);
-        return postService.page(page);
-    }
-
-    // 分页查询帖子，不带话题
+    // 分页查询帖子(无论状态)，不带话题等等其他内容
     @GetMapping("/list")
     public ResultVo getPostsByPage(PostParam postParam) {
         //构造分页对象
@@ -162,6 +156,31 @@ public class PostController {
         //查询
         IPage<Post> list = postService.page(page, query);
         return ResultVo.success("查询成功", list);
+    }
+
+    // 分页查询帖子(正常状态)(只是帖子)，不带话题等等其他内容 http://localhost:12345/api/post/page?current=1&&size=5
+    @GetMapping("/page")
+    public Page<Post> getPostsByPage(@RequestParam(defaultValue = "1") long current,@RequestParam(defaultValue = "10") long size) {
+//        emm 这种写法,可以避免每次请求都要编写一个类
+        Page<Post> page = new Page<>(current, size);
+        QueryWrapper<Post> queryWrapper =new QueryWrapper<>();
+        queryWrapper.lambda().eq(Post::getStatus,"normal"); //查询已经被审核成功，正常的帖子
+        return postService.page(page,queryWrapper);
+    }
+
+    // 分页查找正常帖子带话题等等其他所有东西(完整信息的帖子),
+    @GetMapping("/fullPostsInfoList")
+    public ResultVo getFullPostsInfoList(PostParam param){
+        // 先查带有user信息的Post
+        List<Post> postList = postService.getPostListWithUserInfo(param);
+        // 调用话题服务查话题
+        Optional.ofNullable(postList).orElse(new ArrayList<>())
+                .stream()
+                .filter(item -> item != null)
+                .forEach(item -> {
+                    item.setTopicList(topicService.getTopicsByPostId(item.getPostId()));
+                });
+        return ResultVo.success("查找成功",postList);
     }
 
 

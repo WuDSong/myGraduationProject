@@ -2,9 +2,9 @@ package cn.magic.web.wx_user.controller;
 
 import cn.magic.utils.ResultVo;
 import cn.magic.web.wx_user.entity.LoginVo;
+import cn.magic.web.wx_user.service.WxUserService;
 import cn.magic.web.wx_user.entity.WxUser;
 import cn.magic.web.wx_user.entity.WxUserParam;
-import cn.magic.web.wx_user.service.WxUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -117,8 +117,7 @@ public class WxUserController {
         String pas = "123123";
         UpdateWrapper<WxUser> query = new UpdateWrapper<>();
 
-        query.lambda().set(WxUser::getPassword, DigestUtils.md5DigestAsHex(pas.getBytes(
-                )))
+        query.lambda().set(WxUser::getPassword, DigestUtils.md5DigestAsHex(pas.getBytes()))
                 .eq(WxUser::getUserId,user.getUserId());
         if(wxUserService.update(query)){
             return ResultVo.success("重置成功!");

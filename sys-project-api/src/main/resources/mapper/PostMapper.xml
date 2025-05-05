@@ -2,6 +2,28 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.magic.web.post.mapper.PostMapper">
+    <!-- 在PostMapper.xml中添加返回结果 -->
+    <resultMap id="postResultMap" type="cn.magic.web.post.entity.Post">
+        <id column="post_id" property="postId"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="content_text" property="contentText"/>
+        <result column="author_id" property="authorId"/>
+        <result column="board_id" property="boardId"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+        <result column="view_count" property="viewCount"/>
+        <result column="like_count" property="likeCount"/>
+        <result column="status" property="status"/>
+        <result column="has_images" property="hasImages"/>
+        <!-- 关键：指定cover_images的类型处理器 -->
+        <result column="cover_images"
+                property="coverImages"
+                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result column="username" property="username"/>
+        <result column="avatar_url" property="avatarUrl"/>
+    </resultMap>
+    <!--    一次性插入 topic  -->
     <insert id="insertPostTopic">
         INSERT INTO post_topic (post_id, topic_id)
         VALUES
@@ -9,9 +31,25 @@
             (#{postId}, #{topicId})
         </foreach>
     </insert>
-    <!-- 删除 post_topic 表中与指定 post_id 关联的记录 -->
+    <!--    删除 post_topic 表中与指定 post_id 关联的记录 -->
     <delete id="deletePostTopicByPostId">
         DELETE FROM post_topic
         WHERE post_id = #{postId}
     </delete>
+    <!--    获取带有用户信息的post-->
+    <select id="getPostListWithUserInfo" resultType="cn.magic.web.post.entity.Post" resultMap="postResultMap">
+        SELECT
+        p.*,
+        u.username,
+        u.avatar_url
+        FROM post p
+        LEFT JOIN wx_user u ON p.author_id = u.user_id
+        <where>
+            p.status = 'normal'
+            <if test="title != null and title != ''">
+                AND p.title LIKE CONCAT('%', #{title}, '%')
+            </if>
+        </where>
+        ORDER BY p.post_id
+    </select>
 </mapper>
