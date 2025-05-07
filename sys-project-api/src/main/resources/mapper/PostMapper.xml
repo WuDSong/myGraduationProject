@@ -36,7 +36,7 @@
         DELETE FROM post_topic
         WHERE post_id = #{postId}
     </delete>
-    <!--    获取带有用户信息的post-->
+    <!--    获取带有用户信息的post 多表查询-->
     <select id="getPostListWithUserInfo" resultType="cn.magic.web.post.entity.Post" resultMap="postResultMap">
         SELECT
         p.*,

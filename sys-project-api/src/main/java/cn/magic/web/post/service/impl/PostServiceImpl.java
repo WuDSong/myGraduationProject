@@ -4,6 +4,7 @@ import cn.magic.web.post.entity.Post;
 import cn.magic.web.post.entity.PostParam;
 import cn.magic.web.post.mapper.PostMapper;
 import cn.magic.web.post.service.PostService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
     }
 
     @Override
-    public List<Post> getPostListWithUserInfo(PostParam param) {
+    public IPage<Post> getPostListWithUserInfo(PostParam param) {
         Page<Post> page = new Page<>(param.getCurPage(), param.getPageSize());
         return this.baseMapper.getPostListWithUserInfo(page,param.getTitle());
     }

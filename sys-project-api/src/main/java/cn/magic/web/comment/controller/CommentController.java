@@ -126,7 +126,7 @@ public class CommentController {
         return ResultVo.success("查询成功", commentIPage);
     }
 
-    //分页查找 顶级评论的所有子孙评论 按时间排序 param也就是子孙的祖先 当前评论id就是子孙的root
+    //分页查找 顶级评论的所有子孙评论（包括用户信息） 按时间排序 param也就是子孙的祖先 当前评论id就是子孙的root
     /**@param param  必须参数：页大小,当前页号,当前postID,当前评论id,当前登录用户id*/
     @GetMapping("/descendantsOfTopComment")
     public ResultVo getDescendantList(CommentParam param){

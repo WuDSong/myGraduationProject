@@ -98,7 +98,7 @@
         </dependency>
 
 
-<!--        我的家人-->
+<!--        我新加的-->
         <!-- OpenCV Java依赖 -->
         <dependency>
             <groupId>org.openpnp</groupId>
@@ -112,5 +112,7 @@
             <artifactId>jsoup</artifactId>
             <version>1.19.1</version>
         </dependency>
+<!--        -->
+
     </dependencies>
 </project>

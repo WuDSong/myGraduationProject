@@ -23,11 +23,11 @@ public class Post {
 //    @TableField(typeHandler = JacksonTypeHandler.class) // 如果是本身是String 会导致字符串被二次序列化为 JSON 字符串
     private String content; //内容
     private String contentText; //文字内容
-    private Integer authorId;//作者id
+    private Long authorId;//作者id
     private Integer boardId; //板块
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createdAt;
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updatedAt;
     private Integer viewCount;//观看数目
     private Integer likeCount;//喜欢数量

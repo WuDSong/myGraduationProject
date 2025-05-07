@@ -1,9 +1,15 @@
 package cn.magic.web.collect.controller;
 
 import cn.magic.utils.ResultVo;
+import cn.magic.web.board.service.BoardService;
 import cn.magic.web.collect.entity.Collect;
 import cn.magic.web.collect.entity.CollectParam;
 import cn.magic.web.collect.service.CollectService;
+import cn.magic.web.post.entity.Post;
+import cn.magic.web.post.service.PostService;
+import cn.magic.web.topic.service.TopicService;
+import cn.magic.web.wx_user.entity.WxUser;
+import cn.magic.web.wx_user.service.WxUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -11,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -19,6 +27,13 @@ import java.util.Map;
 public class CollectController {
     @Autowired
     private CollectService collectService;
+    @Autowired
+    private PostService postService;
+
+    @Autowired
+    private TopicService topicService;
+    @Autowired
+    private WxUserService wxUserService;
 
     //新增
     @Transactional
@@ -61,13 +76,34 @@ public class CollectController {
         }
     }
 
-    //分页获取
-    @GetMapping("/list")
+    //分页获取 返回收藏列表
+    @GetMapping("/myCollect")
     public ResultVo getList(CollectParam param) {
         IPage<Collect> page = new Page<>(param.getCurPage(), param.getPageSize());
         QueryWrapper<Collect> query = new QueryWrapper<>();
+        query.lambda().eq(Collect::getUserId,param.getUserId()).orderByDesc(Collect::getCreatedAt);
         //查询
-        IPage<Collect> list = collectService.page(page, query);
-        return ResultVo.success("查询成功", list);
+        IPage<Collect> collectIPage = collectService.page(page, query);
+        List<Collect> collectList =collectIPage.getRecords();
+
+        //处理
+        List<Post> resultPosts = new ArrayList<>();
+        for (Collect item : collectList){
+            Post post = postService.getById(item.getPostId());
+            if (post == null)
+                return ResultVo.error("话题不存在");
+            post.setTopicList(topicService.getTopicsByPostId(item.getPostId()));
+            WxUser user = wxUserService.getById(post.getAuthorId());
+            post.setUsername(user.getUsername());
+            post.setAvatarUrl(user.getAvatarUrl());
+            resultPosts.add(post);
+        }
+        IPage<Post> postPage = new Page<>();
+        postPage.setCurrent(collectIPage.getCurrent());     // 当前页
+        postPage.setSize(collectIPage.getSize());          // 每页数量
+        postPage.setTotal(collectIPage.getTotal());        // 总记录数（基于 Collect）
+        postPage.setRecords(resultPosts);                 // Post 数据列表
+
+        return ResultVo.success("查询成功", postPage);
     }
 }

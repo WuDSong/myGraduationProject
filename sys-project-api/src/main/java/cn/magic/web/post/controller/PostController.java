@@ -5,12 +5,16 @@ import cn.magic.utils.ResultVo;
 import cn.magic.web.banner.entity.Banner;
 import cn.magic.web.board.entity.Board;
 import cn.magic.web.board.service.BoardService;
+import cn.magic.web.comment.entity.Comment;
+import cn.magic.web.post.entity.MyPostVo;
 import cn.magic.web.post.entity.Post;
 import cn.magic.web.post.entity.PostParam;
 import cn.magic.web.post.service.PostService;
 import cn.magic.web.sys_menu.entity.MenuVo;
 import cn.magic.web.topic.entity.Topic;
 import cn.magic.web.topic.service.TopicService;
+import cn.magic.web.wx_user.entity.WxUser;
+import cn.magic.web.wx_user.service.WxUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -24,7 +28,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +45,8 @@ public class PostController {
     private BoardService boardService;
     @Autowired
     private TopicService topicService;
+    @Autowired
+    private WxUserService wxUserService;
 
     // 使用Jsoup解析HTML内容获取图片路径
     public List<String> extractImageUrls(String htmlContent) {
@@ -55,13 +63,14 @@ public class PostController {
         }
         return urls;
     }
+
     //检测帖子的话题是否有效
-    public boolean checkTopicIds(List<Integer> topicIdList){
-        if(topicIdList!=null&&topicIdList.size()>0){
+    public boolean checkTopicIds(List<Integer> topicIdList) {
+        if (topicIdList != null && topicIdList.size() > 0) {
             // 检测每个话题是否存在
             for (Integer topicId : topicIdList) {
-                boolean topicExists = topicService.lambdaQuery().eq(Topic::getTopicId,topicId).eq(Topic::getStatus,"active").exists();
-                if(!topicExists){
+                boolean topicExists = topicService.lambdaQuery().eq(Topic::getTopicId, topicId).eq(Topic::getStatus, "active").exists();
+                if (!topicExists) {
                     return false;
                 }
             }
@@ -76,24 +85,24 @@ public class PostController {
     public ResultVo addPost(@RequestBody Post post) {
         // 数据处理
         //万一使用的是之前的草稿,要检测话题是否还有效吗？交给审核？ 直接打回！
-        boolean boardExists = boardService.lambdaQuery().eq(Board::getBoardId,post.getBoardId()).eq(Board::getStatus,"active").exists();
-        if(!boardExists){
+        boolean boardExists = boardService.lambdaQuery().eq(Board::getBoardId, post.getBoardId()).eq(Board::getStatus, "active").exists();
+        if (!boardExists) {
             ResultVo.error("版区不存在或已被封禁");
         }
-        if(post.getTopicIds().size()>0&&!checkTopicIds(post.getTopicIds())){
+        if (post.getTopicIds().size() > 0 && !checkTopicIds(post.getTopicIds())) {
             return ResultVo.error("话题不存在或已被封禁");
         }
         // 验证通过
         logger.info(" 验证通过！ 新增一条帖子-ing");
         // post封面处理
-        List<String> imgCoverArrays=extractImageUrls(post.getContent());
-        if(imgCoverArrays.size()!=0){ //如果有图片
+        List<String> imgCoverArrays = extractImageUrls(post.getContent());
+        if (imgCoverArrays.size() != 0) { //如果有图片
             post.setHasImages(true);
             post.setCoverImages(imgCoverArrays);
         }
         if (postService.save(post)) {
             //保存了post
-            if(post.getTopicIds()!=null&&post.getTopicIds().size()>0)
+            if (post.getTopicIds() != null && post.getTopicIds().size() > 0)
                 postService.addTopicForPost(post);
             logger.info("新增一条帖子成功");
             return ResultVo.success("上传帖子成功!");
@@ -114,7 +123,7 @@ public class PostController {
     @Transactional
     @PutMapping
     public ResultVo updatePost(@RequestBody Post post) {
-        if(!checkTopicIds(post.getTopicIds())){
+        if (!checkTopicIds(post.getTopicIds())) {
             return ResultVo.error("话题不存在或已被封禁");
         }
         if (postService.updateById(post)) {
@@ -125,28 +134,31 @@ public class PostController {
         return ResultVo.error("编辑失败!");
     }
 
-    // 根据ID查询单个帖子，带话题
+    // 根据ID查询单个帖子（完整信息），带话题等等
     @GetMapping("/{postId}")
     public ResultVo getPostById(@PathVariable long postId) {
-        Post post= postService.getById(postId);
-        if(post==null)
+        Post post = postService.getById(postId);
+        if (post == null)
             return ResultVo.error("话题不存在");
         post.setTopicList(topicService.getTopicsByPostId(postId));
-        return ResultVo.success("查找成功",post);
+        WxUser user = wxUserService.getById(post.getAuthorId());
+        post.setUsername(user.getUsername());
+        post.setAvatarUrl(user.getAvatarUrl());
+        return ResultVo.success("查找成功", post);
     }
 
     // 查询所有帖子(无论状态)，不带话题
     @GetMapping("/allList")
     public ResultVo getAllPosts() {
-        List <Post> list= postService.list();
-        return ResultVo.success("查询成功",list);
+        List<Post> list = postService.list();
+        return ResultVo.success("查询成功", list);
     }
 
     // 分页查询帖子(无论状态)，不带话题等等其他内容
     @GetMapping("/list")
     public ResultVo getPostsByPage(PostParam postParam) {
         //构造分页对象
-        IPage<Post> page = new Page<>(postParam.getCurPage(),postParam.getPageSize());
+        IPage<Post> page = new Page<>(postParam.getCurPage(), postParam.getPageSize());
         //构造查询条件
         QueryWrapper<Post> query = new QueryWrapper<>();
         // 使用 Lambda 表达式构造查询条件
@@ -160,19 +172,20 @@ public class PostController {
 
     // 分页查询帖子(正常状态)(只是帖子)，不带话题等等其他内容 http://localhost:12345/api/post/page?current=1&&size=5
     @GetMapping("/page")
-    public Page<Post> getPostsByPage(@RequestParam(defaultValue = "1") long current,@RequestParam(defaultValue = "10") long size) {
+    public Page<Post> getPostsByPage(@RequestParam(defaultValue = "1") long current, @RequestParam(defaultValue = "10") long size) {
 //        emm 这种写法,可以避免每次请求都要编写一个类
         Page<Post> page = new Page<>(current, size);
-        QueryWrapper<Post> queryWrapper =new QueryWrapper<>();
-        queryWrapper.lambda().eq(Post::getStatus,"normal"); //查询已经被审核成功，正常的帖子
-        return postService.page(page,queryWrapper);
+        QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(Post::getStatus, "normal"); //查询已经被审核成功，正常的帖子
+        return postService.page(page, queryWrapper);
     }
 
-    // 分页查找正常帖子带话题等等其他所有东西(完整信息的帖子),
+    // 分页查找正常帖子带话题等等其他所有东西(完整信息的帖子), 1.使用sql查询
     @GetMapping("/fullPostsInfoList")
-    public ResultVo getFullPostsInfoList(PostParam param){
+    public ResultVo getFullPostsInfoList(PostParam param) {
         // 先查带有user信息的Post
-        List<Post> postList = postService.getPostListWithUserInfo(param);
+        IPage<Post> page = postService.getPostListWithUserInfo(param);
+        List<Post> postList = page.getRecords();
         // 调用话题服务查话题
         Optional.ofNullable(postList).orElse(new ArrayList<>())
                 .stream()
@@ -180,7 +193,7 @@ public class PostController {
                 .forEach(item -> {
                     item.setTopicList(topicService.getTopicsByPostId(item.getPostId()));
                 });
-        return ResultVo.success("查找成功",postList);
+        return ResultVo.success("查找成功", page);
     }
 
 
@@ -193,6 +206,59 @@ public class PostController {
     }
 
 
-    // 分页查找相同版区的帖子
+    // 分页查找相同版区的帖子(完整信息的帖子) ,2.尝试使用Mybatis-Plus查询
+    @GetMapping("/fullPostInfoInSameBoard")
+    public ResultVo getFullPostsInfoListInSameBoard(PostParam param) {
+        if (param.getBoardId() == null) {
+            throw new IllegalArgumentException("boardId 不能为空");
+        }
+        //构造条件查询 相同board normal
+        IPage<Post> page = new Page<>(param.getCurPage(), param.getPageSize());
+        QueryWrapper<Post> query = new QueryWrapper<>();
+        if (StringUtils.isNotEmpty(param.getTitle())) { //如果查询的参数有值，则进行模糊查找
+            query.lambda().eq(Post::getBoardId, param.getBoardId()).eq(Post::getStatus, "normal")
+                    .like(Post::getTitle, param.getTitle());
+        } else
+            query.lambda().eq(Post::getBoardId, param.getBoardId()).eq(Post::getStatus, "normal");
+        IPage<Post> postIPage = postService.page(page, query);
+        List<Post> postList = postIPage.getRecords();
+        Optional.ofNullable(postList).orElse(new ArrayList<>())
+                .stream()
+                .filter(item -> item != null)
+                .forEach(item -> {
+                    //设置
+                    WxUser user = wxUserService.getById(item.getAuthorId());
+                    item.setUsername(user.getUsername());
+                    item.setAvatarUrl(user.getAvatarUrl());
+                    //设置话题
+                    item.setTopicList(topicService.getTopicsByPostId(item.getPostId()));
+                });
+
+        return ResultVo.success("查找成功", page);
+    }
+
+    //  获取我的帖子 （正常/审核中/审核后）
+    @GetMapping("/myPost/{userId}")
+    public ResultVo getMyPost(@PathVariable("userId") Long userId) {
+        MyPostVo myPostVo = new MyPostVo();
+
+        QueryWrapper<Post> queryNormal = new QueryWrapper<>();
+        queryNormal.lambda().eq(Post::getAuthorId,userId).eq(Post::getStatus,"normal").orderByDesc(Post::getCreatedAt);
+        List<Post> normalList=postService.list(queryNormal);
+
+        QueryWrapper<Post> queryRejected = new QueryWrapper<>();
+        queryRejected.lambda().eq(Post::getAuthorId,userId).eq(Post::getStatus,"review_rejected").orderByDesc(Post::getCreatedAt);
+        List<Post> rejectedList=postService.list(queryRejected);
+
+        QueryWrapper<Post> queryPending = new QueryWrapper<>();
+        queryPending.lambda().eq(Post::getAuthorId,userId).eq(Post::getStatus,"pending_review").orderByDesc(Post::getCreatedAt);
+        List<Post> pendingList=postService.list(queryPending);
+
+        myPostVo.setNormal(normalList);
+        myPostVo.setPending_review(pendingList);
+        myPostVo.setReview_rejected(rejectedList);
+
+        return ResultVo.success("ok",myPostVo);
+    }
 
 }

@@ -2,6 +2,7 @@ package cn.magic.web.post.mapper;
 
 import cn.magic.web.post.entity.Post;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,6 +13,6 @@ public interface PostMapper extends BaseMapper<Post> {
 
     boolean deletePostTopicByPostId(@Param("postId")Long postId);
 
-    List<Post> getPostListWithUserInfo(Page<Post> page, @Param("title") String title);
+    IPage<Post> getPostListWithUserInfo(Page<Post> page, @Param("title") String title);
 }
 

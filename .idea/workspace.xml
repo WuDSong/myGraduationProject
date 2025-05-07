@@ -4,27 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0db92583-e6f6-41c2-b976-cb1e027c2f18" name="Changes" comment="Changes">
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/collect/controller/CollectController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/collect/entity/Collect.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/collect/entity/CollectParam.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/collect/mapper/CollectMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/collect/service/CollectService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/collect/service/impl/CollectServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/comment/controller/CommentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/comment/entity/Comment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/comment/entity/CommentParam.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/comment/mapper/CommentMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/comment/service/CommentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/comment/service/impl/CommentServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/like/controller/LikeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/like/entity/Like.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/like/mapper/LikeMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/like/service/LikeService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/like/service/impl/LikeServiceImpl.java" afterDir="false" />
+    <list default="true" id="0db92583-e6f6-41c2-b976-cb1e027c2f18" name="Changes" comment="实现uniApp首页相关api，实现post点赞收藏评论，优化post类型和post话题。">
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/image/controller/FileUploadController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/MyPostVo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/entity/WxUserVo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/banner/controller/BannerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/banner/controller/BannerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/config/mybatis/MyBatisPlusConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/config/mybatis/MyBatisPlusConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/controller/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/collect/controller/CollectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/collect/controller/CollectController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/collect/entity/CollectParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/collect/entity/CollectParam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/comment/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/comment/controller/CommentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/controller/PostController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/Post.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/PostParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/PostParam.java" afterDir="false" />
@@ -32,7 +21,6 @@
       <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/PostService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/impl/PostServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/impl/PostServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/controller/WxUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/controller/WxUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/service/impl/WxUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/service/impl/WxUserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/resources/mapper/PostMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/resources/mapper/PostMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -333,7 +321,16 @@
       <workItem from="1746233789329" duration="9713000" />
       <workItem from="1746263470391" duration="8043000" />
       <workItem from="1746325492876" duration="24008000" />
-      <workItem from="1746411549279" duration="7624000" />
+      <workItem from="1746411549279" duration="11234000" />
+      <workItem from="1746450342478" duration="4472000" />
+      <workItem from="1746496956406" duration="2116000" />
+      <workItem from="1746517078955" duration="7076000" />
+      <workItem from="1746586329765" duration="6000" />
+      <workItem from="1746590931555" duration="945000" />
+      <workItem from="1746591896175" duration="404000" />
+      <workItem from="1746600966123" duration="2332000" />
+      <workItem from="1746607104978" duration="3548000" />
+      <workItem from="1746619567734" duration="4018000" />
     </task>
     <task id="LOCAL-00001" summary="firstPush">
       <created>1741497062901</created>
@@ -405,7 +402,14 @@
       <option name="project" value="LOCAL" />
       <updated>1746003213534</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="实现uniApp首页相关api，实现post点赞收藏评论，优化post类型和post话题。">
+      <created>1746434188090</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1746434188090</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -448,7 +452,8 @@
     <MESSAGE value="role角色相关功能" />
     <MESSAGE value="解决role角色菜单分配和数据回显" />
     <MESSAGE value="登录和更新密码" />
-    <option name="LAST_COMMIT_MESSAGE" value="登录和更新密码" />
+    <MESSAGE value="实现uniApp首页相关api，实现post点赞收藏评论，优化post类型和post话题。" />
+    <option name="LAST_COMMIT_MESSAGE" value="实现uniApp首页相关api，实现post点赞收藏评论，优化post类型和post话题。" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
