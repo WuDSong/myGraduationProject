@@ -4,24 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0db92583-e6f6-41c2-b976-cb1e027c2f18" name="Changes" comment="实现uniApp首页相关api，实现post点赞收藏评论，优化post类型和post话题。">
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/image/controller/FileUploadController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/MyPostVo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/entity/WxUserVo.java" afterDir="false" />
+    <list default="true" id="0db92583-e6f6-41c2-b976-cb1e027c2f18" name="Changes" comment="增加了返回父评论内容,实现评论的软删除,修复获取父评论的逻辑,增加获取我的评论和我的父评论api">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/controller/BoardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/collect/controller/CollectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/collect/controller/CollectController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/collect/entity/CollectParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/collect/entity/CollectParam.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/comment/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/comment/controller/CommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/controller/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/Post.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/PostParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/PostParam.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/mapper/PostMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/mapper/PostMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/PostService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/impl/PostServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/impl/PostServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/controller/WxUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/controller/WxUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/resources/mapper/PostMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/resources/mapper/PostMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/comment/entity/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/comment/entity/Comment.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +68,7 @@
     &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;750aa3ea9484adbe04aeafc1ba66607d&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -330,7 +318,10 @@
       <workItem from="1746591896175" duration="404000" />
       <workItem from="1746600966123" duration="2332000" />
       <workItem from="1746607104978" duration="3548000" />
-      <workItem from="1746619567734" duration="4018000" />
+      <workItem from="1746619567734" duration="4867000" />
+      <workItem from="1746672442457" duration="2298000" />
+      <workItem from="1746704054612" duration="7368000" />
+      <workItem from="1746759473556" duration="367000" />
     </task>
     <task id="LOCAL-00001" summary="firstPush">
       <created>1741497062901</created>
@@ -409,7 +400,14 @@
       <option name="project" value="LOCAL" />
       <updated>1746434188090</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="优化board添加时设置默认值，新增申请api;新增获取收藏列表api;修复12小时制时间为24小时;新增通过分页查找相同版区的帖子api,修复根据ID查询单个帖子（完整信息）不完善,完善分页查找带用户信息正常帖子并添加服务查找带用户信息正常帖子;新增通过用户id 查找用户。">
+      <created>1746629725968</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1746629725968</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -453,7 +451,9 @@
     <MESSAGE value="解决role角色菜单分配和数据回显" />
     <MESSAGE value="登录和更新密码" />
     <MESSAGE value="实现uniApp首页相关api，实现post点赞收藏评论，优化post类型和post话题。" />
-    <option name="LAST_COMMIT_MESSAGE" value="实现uniApp首页相关api，实现post点赞收藏评论，优化post类型和post话题。" />
+    <MESSAGE value="优化board添加时设置默认值，新增申请api;新增获取收藏列表api;修复12小时制时间为24小时;新增通过分页查找相同版区的帖子api,修复根据ID查询单个帖子（完整信息）不完善,完善分页查找带用户信息正常帖子并添加服务查找带用户信息正常帖子;新增通过用户id 查找用户。" />
+    <MESSAGE value="增加了返回父评论内容,实现评论的软删除,修复获取父评论的逻辑,增加获取我的评论和我的父评论api" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加了返回父评论内容,实现评论的软删除,修复获取父评论的逻辑,增加获取我的评论和我的父评论api" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

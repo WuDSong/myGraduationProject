@@ -12,6 +12,7 @@ import cn.magic.web.wx_user.entity.WxUser;
 import cn.magic.web.wx_user.service.WxUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -93,9 +94,11 @@ public class CollectController {
             if (post == null)
                 return ResultVo.error("话题不存在");
             post.setTopicList(topicService.getTopicsByPostId(item.getPostId()));
+
             WxUser user = wxUserService.getById(post.getAuthorId());
             post.setUsername(user.getUsername());
             post.setAvatarUrl(user.getAvatarUrl());
+
             resultPosts.add(post);
         }
         IPage<Post> postPage = new Page<>();
