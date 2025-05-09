@@ -6,6 +6,7 @@ import cn.magic.web.banner.entity.Banner;
 import cn.magic.web.board.entity.Board;
 import cn.magic.web.board.service.BoardService;
 import cn.magic.web.comment.entity.Comment;
+import cn.magic.web.post.entity.BasePostInfoVo;
 import cn.magic.web.post.entity.MyPostVo;
 import cn.magic.web.post.entity.Post;
 import cn.magic.web.post.entity.PostParam;
@@ -110,10 +111,20 @@ public class PostController {
         return ResultVo.error("上传帖子失败!");
     }
 
-    // 删除帖子:完全删除,先删除post_topic,后删除post
+    // 删除帖子:完全删除,先删除post_topic 等等
     @DeleteMapping("/{postId}")
     public ResultVo deletePost(@PathVariable Long postId) {
         if (postService.deletePostById(postId)) {
+            return ResultVo.success("删除成功!");
+        }
+        return ResultVo.error("删除失败!");
+    }
+    // 伪删除
+    @DeleteMapping("/del/{postId}")
+    public ResultVo delPost(@PathVariable Long postId) {
+        Post post = postService.getById(postId);
+        post.setStatus("deleted");
+        if (postService.updateById(post)) {
             return ResultVo.success("删除成功!");
         }
         return ResultVo.error("删除失败!");
@@ -259,6 +270,24 @@ public class PostController {
         myPostVo.setReview_rejected(rejectedList);
 
         return ResultVo.success("ok",myPostVo);
+    }
+
+    @GetMapping("/myDraftPost")
+    public ResultVo getMyDraftPost(Long userId){
+        QueryWrapper<Post> queryWrapper =new QueryWrapper<>();
+        queryWrapper.lambda().eq(Post::getAuthorId,userId).eq(Post::getStatus,"draft").orderByDesc(Post::getCreatedAt);
+        List<Post> list = postService.list(queryWrapper);
+        List<BasePostInfoVo> basePostInfoVos =new ArrayList<>();
+        for(Post p:list){
+            BasePostInfoVo b=new BasePostInfoVo();
+            b.setTitle(p.getTitle());
+            b.setCreatedAt(p.getCreatedAt());
+            b.setContentText(p.getContentText());
+            b.setPostId(p.getPostId());
+            b.setCoverImages(p.getCoverImages());
+            basePostInfoVos.add(b);
+        }
+        return ResultVo.success("查找我的草稿成功",basePostInfoVos);
     }
 
 }
