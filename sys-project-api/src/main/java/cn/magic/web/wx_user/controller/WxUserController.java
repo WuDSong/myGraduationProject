@@ -1,26 +1,32 @@
 package cn.magic.web.wx_user.controller;
 
 import cn.magic.utils.ResultVo;
-import cn.magic.web.wx_user.entity.LoginVo;
-import cn.magic.web.wx_user.entity.WxUserVo;
+import cn.magic.web.log.entity.UserActiveLog;
+import cn.magic.web.log.service.UserActiveLogService;
+import cn.magic.web.wx_user.entity.*;
 import cn.magic.web.wx_user.service.WxUserService;
-import cn.magic.web.wx_user.entity.WxUser;
-import cn.magic.web.wx_user.entity.WxUserParam;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @RestController
 @RequestMapping("/api/wxUser")
 public class WxUserController {
     @Autowired
     WxUserService wxUserService;
-
+    @Autowired
+    private UserActiveLogService userActiveLogService;
+    private static final Logger logger = LoggerFactory.getLogger(WxUserController.class);
     //新增&&注册
     @PostMapping
     public ResultVo add(@RequestBody WxUser wxUser) {
@@ -48,7 +54,7 @@ public class WxUserController {
     public ResultVo login(@RequestBody WxUser user) {
         //构造查询条件
         QueryWrapper<WxUser> query = new QueryWrapper<>();
-        query.lambda().eq(WxUser::getUsername, user.getUsername()).eq(WxUser::getPassword,
+        query.lambda().eq(WxUser::getUsername, user.getUsername()).eq(WxUser::getStatus,"active").eq(WxUser::getPassword,
                 DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
         WxUser wxUser = wxUserService.getOne(query);
         if (wxUser != null) {
@@ -60,7 +66,21 @@ public class WxUserController {
             vo.setUsername(wxUser.getUsername());
             vo.setEmail(wxUser.getEmail());
             vo.setUserId(wxUser.getUserId());
-            return ResultVo.success("登录成功", vo);
+            // 更新最后登录时间
+            wxUser.setLastLogin(new Date());
+            wxUserService.updateById(wxUser);
+            //更新用户活跃日志表
+            UserActiveLog userActiveLog = new UserActiveLog();
+            userActiveLog.setDate(new Date());
+            userActiveLog.setUserId(wxUser.getUserId());
+            try {
+                userActiveLogService.save(userActiveLog);
+            }catch (Exception e){
+                logger.error("当前用户已被记录活跃时间"+e);
+            }
+            finally {
+                return ResultVo.success("登录成功", vo);
+            }
         }
         return ResultVo.error("用户密码或密码错误!");
     }
@@ -80,7 +100,6 @@ public class WxUserController {
     //编辑
     @PutMapping
     public ResultVo edit(@RequestBody WxUser wxUser) {
-        //todo 增加密码加密
         if (wxUserService.updateById(wxUser)) {
             return ResultVo.success("编辑成功!");
         }
@@ -116,8 +135,8 @@ public class WxUserController {
     @GetMapping("/{id}")
     public ResultVo getUserById(@PathVariable("id") Long id) {
         WxUser user = wxUserService.getById(id);
-        if (user == null||!"active".equals(user.getStatus())) return ResultVo.error("当前用户错误");
-        WxUserVo vo =new WxUserVo();
+        if (user == null || !"active".equals(user.getStatus())) return ResultVo.error("当前用户错误");
+        WxUserVo vo = new WxUserVo();
         vo.setUserId(user.getUserId());
         vo.setAvatarUrl(user.getAvatarUrl());
         vo.setUsername(user.getUsername());
@@ -126,13 +145,34 @@ public class WxUserController {
         return ResultVo.success("查询成功", vo);
     }
 
-    //重置密码
-    @PostMapping("/updatePassword")
-    public ResultVo updatePassword(@RequestBody WxUser user) {
+    //小程序忘记密码
+    @PostMapping("/forget")
+    public ResultVo forget(@RequestBody ForgetParam param){
+        //查询用户是否存在
+        QueryWrapper<WxUser> query = new QueryWrapper<>();
+        query.lambda().eq(WxUser::getUsername,param.getUsername())
+                .eq(WxUser::getEmail,param.getEmail());
+        WxUser one = wxUserService.getOne(query);
+        if(one == null){
+            return ResultVo.error("账户或邮箱不正确!");
+        }
+        //更新条件
+        UpdateWrapper<WxUser> update = new UpdateWrapper<>();
+        update.lambda().set(WxUser::getPassword,DigestUtils.md5DigestAsHex(param.getPassword().getBytes()))
+                .eq(WxUser::getUsername,param.getUsername())
+                .eq(WxUser::getEmail,param.getEmail());
+        if(wxUserService.update(update)){
+            return ResultVo.success("修改密码成功!");
+        }
+        return ResultVo.error("修改失败!");
+    }
+
+    // 后台直接重置密码
+    @PostMapping("/resetPassword")
+    public ResultVo resetPassword(@RequestBody WxUser user) {
         //默认重置密码为123123
         String pas = "123123";
         UpdateWrapper<WxUser> query = new UpdateWrapper<>();
-
         query.lambda().set(WxUser::getPassword, DigestUtils.md5DigestAsHex(pas.getBytes()))
                 .eq(WxUser::getUserId, user.getUserId());
         if (wxUserService.update(query)) {
@@ -141,4 +181,20 @@ public class WxUserController {
         return ResultVo.error("重置失败!");
     }
 
+    // 更新密码 , 已经登录
+    @PutMapping("/updatePassword")
+    public ResultVo updatePassword(@RequestBody UpdatePasswordParam param) {
+        System.out.println(param.getOldPassword());
+        WxUser user = wxUserService.getById(param.getUserId());
+        if(user==null)
+            return ResultVo.error("用户非法");
+        if (!user.getPassword().equals(DigestUtils.md5DigestAsHex(param.getOldPassword().getBytes())) ) {
+            return ResultVo.error("原密码不正确");
+        }
+        user.setPassword(DigestUtils.md5DigestAsHex(param.getPassword().getBytes()));
+        if (wxUserService.updateById(user)) {
+            return ResultVo.success("修改密码成功!");
+        }
+        return ResultVo.error("修改密码失败!");
+    }
 }

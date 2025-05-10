@@ -41,6 +41,7 @@ public class MakeMenuTreeUtil {
                     router.setIcon(item.getIcon());
                     router.setTitle(item.getMenuName());
                     router.setPath(item.getPath());
+                    router.setMenuType(item.getMenuType());
                     //设置children 递归调用：自己调用自己
                     List<MenuVo> children = makeRouterTree(menuList,item.getMid());
                     router.setChildren(children);

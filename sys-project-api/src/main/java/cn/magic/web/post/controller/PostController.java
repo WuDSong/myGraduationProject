@@ -2,16 +2,13 @@ package cn.magic.web.post.controller;
 
 import cn.magic.utils.ImgChecker;
 import cn.magic.utils.ResultVo;
-import cn.magic.web.banner.entity.Banner;
 import cn.magic.web.board.entity.Board;
 import cn.magic.web.board.service.BoardService;
-import cn.magic.web.comment.entity.Comment;
 import cn.magic.web.post.entity.BasePostInfoVo;
 import cn.magic.web.post.entity.MyPostVo;
 import cn.magic.web.post.entity.Post;
 import cn.magic.web.post.entity.PostParam;
 import cn.magic.web.post.service.PostService;
-import cn.magic.web.sys_menu.entity.MenuVo;
 import cn.magic.web.topic.entity.Topic;
 import cn.magic.web.topic.service.TopicService;
 import cn.magic.web.wx_user.entity.WxUser;
@@ -31,7 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -95,6 +91,7 @@ public class PostController {
         }
         // 验证通过
         logger.info(" 验证通过！ 新增一条帖子-ing");
+        post.setReviewCount(null);
         // post封面处理
         List<String> imgCoverArrays = extractImageUrls(post.getContent());
         if (imgCoverArrays.size() != 0) { //如果有图片

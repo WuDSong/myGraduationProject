@@ -147,9 +147,11 @@ public class SysUserController {
         }
         // 查找菜单树
         List<SysMenu> menuList = null;
+        QueryWrapper<SysMenu> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().orderByAsc(SysMenu::getSort);
         if (StringUtils.isNotEmpty(user.getIsAdmin()) &&
                 "1".equals(user.getIsAdmin())) {
-            menuList = sysMenuService.list();
+            menuList = sysMenuService.list(queryWrapper);
         } else {
             menuList = sysMenuService.getMenuByUserRoleId(user.getRid());
         }

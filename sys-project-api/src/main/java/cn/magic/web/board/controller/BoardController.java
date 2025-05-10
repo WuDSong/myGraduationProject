@@ -27,6 +27,8 @@ public class BoardController {
             board.setIcon(null);
         if (board.getSortOrder() > 10 || board.getSortOrder() < 1)
             board.setSortOrder(null);
+        System.out.println("**************************************");
+        System.out.println(board.getCreatorId());
         if (boardService.save(board)) {
             return ResultVo.success("新增成功!");
         }
@@ -65,7 +67,7 @@ public class BoardController {
         return ResultVo.error("删除失败!");
     }
 
-    //分页获取 无论状态 后台
+    //分页获取 无论状态 后台用
     @GetMapping("/list")
     public ResultVo getList(BoardParam param) {
         //构造分页对象
@@ -95,6 +97,14 @@ public class BoardController {
         query.lambda().eq(Board::getStatus, "active").orderByAsc(Board::getSortOrder);
         List<Board> list = boardService.list(query);
         return ResultVo.success("查询成功", list);
+    }
+    //获取我的板块
+    @GetMapping("/my/{userId}")
+    public ResultVo getMyBoard(@PathVariable("userId")Long userId){
+        QueryWrapper<Board> query = new QueryWrapper<>();
+        query.lambda().eq(Board::getStatus, "active").eq(Board::getCreatorId,userId).orderByAsc(Board::getSortOrder);
+        List<Board> list = boardService.list(query);
+        return ResultVo.success("查询我的板块成功", list);
     }
 
     //判断是否被占用

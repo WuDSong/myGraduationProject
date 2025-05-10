@@ -4,15 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0db92583-e6f6-41c2-b976-cb1e027c2f18" name="Changes" comment="增加了返回父评论内容,实现评论的软删除,修复获取父评论的逻辑,增加获取我的评论和我的父评论api">
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/BasePostInfoVo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/report/controller/ReportController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/report/entity/Report.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/report/mapper/ReportMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/report/service/ReportService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/report/service/impl/ReportServiceImpl.java" afterDir="false" />
+    <list default="true" id="0db92583-e6f6-41c2-b976-cb1e027c2f18" name="Changes" comment="增加获取用户草稿api;完成举报的创建api;">
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/config/websocket/WebSocketConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/log/controller/UserActiveLogController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/log/entity/UserActiveLog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/log/entity/UserCountVo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/log/mapper/UserActiveLogMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/log/service/UserActiveLogService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/log/service/impl/UserActiveLogServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/webSocket/controller/MessageController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/webSocket/entity/Message.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/webSocket/entity/PostUpdateMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/entity/ForgetParam.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/entity/UpdatePasswordParam.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-com/src/main/java/cn/magic/utils/PastDate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/controller/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/entity/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/entity/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/controller/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_menu/entity/MakeMenuTreeUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_menu/entity/MakeMenuTreeUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_menu/entity/MenuVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_menu/entity/MenuVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_user/controller/SysUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_user/controller/SysUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/controller/WxUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/controller/WxUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/resources/mapper/SysMenuMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/resources/mapper/SysMenuMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +40,7 @@
       <list>
         <option value="spring-beans.schema" />
         <option value="Interface" />
+        <option value="Record" />
         <option value="Class" />
       </list>
     </option>
@@ -52,30 +69,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ApiPost:METDOD_SEND_RECORD:sys-project-api": "{\"/api/sysUser/getList\":[{\"url\":\"http://localhost:10086/api/sysUser/getList\",\"header\":[{\"is_checked\":1.0,\"type\":\"Text\",\"value\":\"\"}],\"query\":[{\"is_checked\":1.0,\"key\":\"curPage\",\"type\":\"Text\",\"not_null\":\"0\",\"field_type\":\"Long\",\"value\":\"1\"},{\"is_checked\":1.0,\"key\":\"pageSize\",\"type\":\"Text\",\"not_null\":\"0\",\"field_type\":\"Long\",\"value\":\"3\"},{\"is_checked\":1.0,\"key\":\"nickName\",\"type\":\"Text\",\"not_null\":\"0\",\"field_type\":\"String\",\"value\":\"\"},{\"is_checked\":1.0,\"type\":\"Text\",\"value\":\"\"}],\"requestBody\":\"\",\"responseBody\":\"{\\n  \\\"msg\\\": \\\"查询成功！！！\\\",\\n  \\\"code\\\": 200.0,\\n  \\\"data\\\": {\\n    \\\"records\\\": [\\n      {\\n        \\\"userId\\\": 1.0,\\n        \\\"userName\\\": \\\"admin\\\",\\n        \\\"password\\\": \\\"202cb962ac59075b964b07152d234b70\\\",\\n        \\\"nickName\\\": \\\"超级管理员1\\\",\\n        \\\"sex\\\": \\\"0\\\",\\n        \\\"phone\\\": \\\"17792709280\\\",\\n        \\\"status\\\": \\\"0\\\",\\n        \\\"isAdmin\\\": \\\"1\\\"\\n      },\\n      {\\n        \\\"userId\\\": 2.0,\\n        \\\"userName\\\": \\\"zhangsan\\\",\\n        \\\"password\\\": \\\"202cb962ac59075b964b07152d234b70\\\",\\n        \\\"nickName\\\": \\\"管理员\\\",\\n        \\\"sex\\\": \\\"1\\\",\\n        \\\"phone\\\": \\\"13389287896\\\",\\n        \\\"status\\\": \\\"0\\\",\\n        \\\"isAdmin\\\": null\\n      },\\n      {\\n        \\\"userId\\\": 3.0,\\n        \\\"userName\\\": \\\"xiaoma\\\",\\n        \\\"password\\\": \\\"202cb962ac59075b964b07152d234b70\\\",\\n        \\\"nickName\\\": \\\"普通会员\\\",\\n        \\\"sex\\\": \\\"0\\\",\\n        \\\"phone\\\": \\\"18823217890\\\",\\n        \\\"status\\\": \\\"0\\\",\\n        \\\"isAdmin\\\": null\\n      }\\n    ],\\n    \\\"total\\\": 6.0,\\n    \\\"size\\\": 3.0,\\n    \\\"current\\\": 1.0,\\n    \\\"orders\\\": [],\\n    \\\"optimizeCountSql\\\": true,\\n    \\\"searchCount\\\": true,\\n    \\\"maxLimit\\\": null,\\n    \\\"countId\\\": null,\\n    \\\"pages\\\": 2.0\\n  }\\n}\",\"selectedItem\":\"GET\",\"time\":{\"date\":{\"year\":2024.0,\"month\":12.0,\"day\":26.0},\"time\":{\"hour\":16.0,\"minute\":28.0,\"second\":19.0,\"nano\":8.280463E8}}},{\"url\":\"http://localhost:10086/api/sysUser/getList\",\"header\":[{\"is_checked\":1,\"type\":\"Text\",\"value\":\"\"}],\"query\":[{\"is_checked\":1,\"key\":\"curPage\",\"type\":\"Text\",\"not_null\":\"0\",\"field_type\":\"Long\",\"value\":\"1\"},{\"is_checked\":1,\"key\":\"pageSize\",\"type\":\"Text\",\"not_null\":\"0\",\"field_type\":\"Long\",\"value\":\"3\"},{\"is_checked\":1,\"key\":\"nickName\",\"type\":\"Text\",\"not_null\":\"0\",\"field_type\":\"String\",\"value\":\"员1\"},{\"is_checked\":1,\"type\":\"Text\",\"value\":\"\"}],\"requestBody\":\"\",\"responseBody\":\"{\\n  \\\"msg\\\": \\\"查询成功！！！\\\",\\n  \\\"code\\\": 200.0,\\n  \\\"data\\\": {\\n    \\\"records\\\": [\\n      {\\n        \\\"userId\\\": 1.0,\\n        \\\"userName\\\": \\\"admin\\\",\\n        \\\"password\\\": \\\"202cb962ac59075b964b07152d234b70\\\",\\n        \\\"nickName\\\": \\\"超级管理员1\\\",\\n        \\\"sex\\\": \\\"0\\\",\\n        \\\"phone\\\": \\\"17792709280\\\",\\n        \\\"status\\\": \\\"0\\\",\\n        \\\"isAdmin\\\": \\\"1\\\"\\n      }\\n    ],\\n    \\\"total\\\": 1.0,\\n    \\\"size\\\": 3.0,\\n    \\\"current\\\": 1.0,\\n    \\\"orders\\\": [],\\n    \\\"optimizeCountSql\\\": true,\\n    \\\"searchCount\\\": true,\\n    \\\"maxLimit\\\": null,\\n    \\\"countId\\\": null,\\n    \\\"pages\\\": 1.0\\n  }\\n}\",\"selectedItem\":\"GET\",\"time\":{\"date\":{\"year\":2024,\"month\":12,\"day\":26},\"time\":{\"hour\":16,\"minute\":28,\"second\":32,\"nano\":495122800}}}]}",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "jdk.selected.JAVA_MODULE": "21",
-    "last_opened_file_path": "E:/Mycode/MyGraduationProject/back-endServer/sys-project-api/src/main/java/cn/magic/web",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "模块",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "spring.configuration.checksum": "750aa3ea9484adbe04aeafc1ba66607d",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ApiPost:METDOD_SEND_RECORD:sys-project-api&quot;: &quot;{\&quot;/api/sysUser/getList\&quot;:[{\&quot;url\&quot;:\&quot;http://localhost:10086/api/sysUser/getList\&quot;,\&quot;header\&quot;:[{\&quot;is_checked\&quot;:1.0,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;value\&quot;:\&quot;\&quot;}],\&quot;query\&quot;:[{\&quot;is_checked\&quot;:1.0,\&quot;key\&quot;:\&quot;curPage\&quot;,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;not_null\&quot;:\&quot;0\&quot;,\&quot;field_type\&quot;:\&quot;Long\&quot;,\&quot;value\&quot;:\&quot;1\&quot;},{\&quot;is_checked\&quot;:1.0,\&quot;key\&quot;:\&quot;pageSize\&quot;,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;not_null\&quot;:\&quot;0\&quot;,\&quot;field_type\&quot;:\&quot;Long\&quot;,\&quot;value\&quot;:\&quot;3\&quot;},{\&quot;is_checked\&quot;:1.0,\&quot;key\&quot;:\&quot;nickName\&quot;,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;not_null\&quot;:\&quot;0\&quot;,\&quot;field_type\&quot;:\&quot;String\&quot;,\&quot;value\&quot;:\&quot;\&quot;},{\&quot;is_checked\&quot;:1.0,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;value\&quot;:\&quot;\&quot;}],\&quot;requestBody\&quot;:\&quot;\&quot;,\&quot;responseBody\&quot;:\&quot;{\\n  \\\&quot;msg\\\&quot;: \\\&quot;查询成功！！！\\\&quot;,\\n  \\\&quot;code\\\&quot;: 200.0,\\n  \\\&quot;data\\\&quot;: {\\n    \\\&quot;records\\\&quot;: [\\n      {\\n        \\\&quot;userId\\\&quot;: 1.0,\\n        \\\&quot;userName\\\&quot;: \\\&quot;admin\\\&quot;,\\n        \\\&quot;password\\\&quot;: \\\&quot;202cb962ac59075b964b07152d234b70\\\&quot;,\\n        \\\&quot;nickName\\\&quot;: \\\&quot;超级管理员1\\\&quot;,\\n        \\\&quot;sex\\\&quot;: \\\&quot;0\\\&quot;,\\n        \\\&quot;phone\\\&quot;: \\\&quot;17792709280\\\&quot;,\\n        \\\&quot;status\\\&quot;: \\\&quot;0\\\&quot;,\\n        \\\&quot;isAdmin\\\&quot;: \\\&quot;1\\\&quot;\\n      },\\n      {\\n        \\\&quot;userId\\\&quot;: 2.0,\\n        \\\&quot;userName\\\&quot;: \\\&quot;zhangsan\\\&quot;,\\n        \\\&quot;password\\\&quot;: \\\&quot;202cb962ac59075b964b07152d234b70\\\&quot;,\\n        \\\&quot;nickName\\\&quot;: \\\&quot;管理员\\\&quot;,\\n        \\\&quot;sex\\\&quot;: \\\&quot;1\\\&quot;,\\n        \\\&quot;phone\\\&quot;: \\\&quot;13389287896\\\&quot;,\\n        \\\&quot;status\\\&quot;: \\\&quot;0\\\&quot;,\\n        \\\&quot;isAdmin\\\&quot;: null\\n      },\\n      {\\n        \\\&quot;userId\\\&quot;: 3.0,\\n        \\\&quot;userName\\\&quot;: \\\&quot;xiaoma\\\&quot;,\\n        \\\&quot;password\\\&quot;: \\\&quot;202cb962ac59075b964b07152d234b70\\\&quot;,\\n        \\\&quot;nickName\\\&quot;: \\\&quot;普通会员\\\&quot;,\\n        \\\&quot;sex\\\&quot;: \\\&quot;0\\\&quot;,\\n        \\\&quot;phone\\\&quot;: \\\&quot;18823217890\\\&quot;,\\n        \\\&quot;status\\\&quot;: \\\&quot;0\\\&quot;,\\n        \\\&quot;isAdmin\\\&quot;: null\\n      }\\n    ],\\n    \\\&quot;total\\\&quot;: 6.0,\\n    \\\&quot;size\\\&quot;: 3.0,\\n    \\\&quot;current\\\&quot;: 1.0,\\n    \\\&quot;orders\\\&quot;: [],\\n    \\\&quot;optimizeCountSql\\\&quot;: true,\\n    \\\&quot;searchCount\\\&quot;: true,\\n    \\\&quot;maxLimit\\\&quot;: null,\\n    \\\&quot;countId\\\&quot;: null,\\n    \\\&quot;pages\\\&quot;: 2.0\\n  }\\n}\&quot;,\&quot;selectedItem\&quot;:\&quot;GET\&quot;,\&quot;time\&quot;:{\&quot;date\&quot;:{\&quot;year\&quot;:2024.0,\&quot;month\&quot;:12.0,\&quot;day\&quot;:26.0},\&quot;time\&quot;:{\&quot;hour\&quot;:16.0,\&quot;minute\&quot;:28.0,\&quot;second\&quot;:19.0,\&quot;nano\&quot;:8.280463E8}}},{\&quot;url\&quot;:\&quot;http://localhost:10086/api/sysUser/getList\&quot;,\&quot;header\&quot;:[{\&quot;is_checked\&quot;:1,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;value\&quot;:\&quot;\&quot;}],\&quot;query\&quot;:[{\&quot;is_checked\&quot;:1,\&quot;key\&quot;:\&quot;curPage\&quot;,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;not_null\&quot;:\&quot;0\&quot;,\&quot;field_type\&quot;:\&quot;Long\&quot;,\&quot;value\&quot;:\&quot;1\&quot;},{\&quot;is_checked\&quot;:1,\&quot;key\&quot;:\&quot;pageSize\&quot;,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;not_null\&quot;:\&quot;0\&quot;,\&quot;field_type\&quot;:\&quot;Long\&quot;,\&quot;value\&quot;:\&quot;3\&quot;},{\&quot;is_checked\&quot;:1,\&quot;key\&quot;:\&quot;nickName\&quot;,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;not_null\&quot;:\&quot;0\&quot;,\&quot;field_type\&quot;:\&quot;String\&quot;,\&quot;value\&quot;:\&quot;员1\&quot;},{\&quot;is_checked\&quot;:1,\&quot;type\&quot;:\&quot;Text\&quot;,\&quot;value\&quot;:\&quot;\&quot;}],\&quot;requestBody\&quot;:\&quot;\&quot;,\&quot;responseBody\&quot;:\&quot;{\\n  \\\&quot;msg\\\&quot;: \\\&quot;查询成功！！！\\\&quot;,\\n  \\\&quot;code\\\&quot;: 200.0,\\n  \\\&quot;data\\\&quot;: {\\n    \\\&quot;records\\\&quot;: [\\n      {\\n        \\\&quot;userId\\\&quot;: 1.0,\\n        \\\&quot;userName\\\&quot;: \\\&quot;admin\\\&quot;,\\n        \\\&quot;password\\\&quot;: \\\&quot;202cb962ac59075b964b07152d234b70\\\&quot;,\\n        \\\&quot;nickName\\\&quot;: \\\&quot;超级管理员1\\\&quot;,\\n        \\\&quot;sex\\\&quot;: \\\&quot;0\\\&quot;,\\n        \\\&quot;phone\\\&quot;: \\\&quot;17792709280\\\&quot;,\\n        \\\&quot;status\\\&quot;: \\\&quot;0\\\&quot;,\\n        \\\&quot;isAdmin\\\&quot;: \\\&quot;1\\\&quot;\\n      }\\n    ],\\n    \\\&quot;total\\\&quot;: 1.0,\\n    \\\&quot;size\\\&quot;: 3.0,\\n    \\\&quot;current\\\&quot;: 1.0,\\n    \\\&quot;orders\\\&quot;: [],\\n    \\\&quot;optimizeCountSql\\\&quot;: true,\\n    \\\&quot;searchCount\\\&quot;: true,\\n    \\\&quot;maxLimit\\\&quot;: null,\\n    \\\&quot;countId\\\&quot;: null,\\n    \\\&quot;pages\\\&quot;: 1.0\\n  }\\n}\&quot;,\&quot;selectedItem\&quot;:\&quot;GET\&quot;,\&quot;time\&quot;:{\&quot;date\&quot;:{\&quot;year\&quot;:2024,\&quot;month\&quot;:12,\&quot;day\&quot;:26},\&quot;time\&quot;:{\&quot;hour\&quot;:16,\&quot;minute\&quot;:28,\&quot;second\&quot;:32,\&quot;nano\&quot;:495122800}}}]}&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Mycode/MyGraduationProject/back-endServer/sys-project-api/src/main/java/cn/magic/web&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;750aa3ea9484adbe04aeafc1ba66607d&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Mycode\MyGraduationProject\back-endServer\sys-project-api\src\main\java\cn\magic\web" />
@@ -88,6 +105,7 @@
       <recent name="E:\Mycode\汉云实习\安徽工业大学秀山校区\后端项目\sys-project\sys-project-api\src\main\java\cn\magic\web\goods_category\mapper" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="cn.magic.web.wx_user.entity" />
       <recent name="cn.magic.web.sys_menu.entity" />
     </key>
   </component>
@@ -325,7 +343,9 @@
       <workItem from="1746672442457" duration="2298000" />
       <workItem from="1746704054612" duration="7368000" />
       <workItem from="1746759473556" duration="984000" />
-      <workItem from="1746774588859" duration="5079000" />
+      <workItem from="1746774588859" duration="16608000" />
+      <workItem from="1746846193028" duration="3612000" />
+      <workItem from="1746861609726" duration="12474000" />
     </task>
     <task id="LOCAL-00001" summary="firstPush">
       <created>1741497062901</created>
@@ -418,7 +438,14 @@
       <option name="project" value="LOCAL" />
       <updated>1746759853480</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="增加获取用户草稿api;完成举报的创建api;">
+      <created>1746783403305</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1746783403305</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -464,7 +491,8 @@
     <MESSAGE value="实现uniApp首页相关api，实现post点赞收藏评论，优化post类型和post话题。" />
     <MESSAGE value="优化board添加时设置默认值，新增申请api;新增获取收藏列表api;修复12小时制时间为24小时;新增通过分页查找相同版区的帖子api,修复根据ID查询单个帖子（完整信息）不完善,完善分页查找带用户信息正常帖子并添加服务查找带用户信息正常帖子;新增通过用户id 查找用户。" />
     <MESSAGE value="增加了返回父评论内容,实现评论的软删除,修复获取父评论的逻辑,增加获取我的评论和我的父评论api" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加了返回父评论内容,实现评论的软删除,修复获取父评论的逻辑,增加获取我的评论和我的父评论api" />
+    <MESSAGE value="增加获取用户草稿api;完成举报的创建api;" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加获取用户草稿api;完成举报的创建api;" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

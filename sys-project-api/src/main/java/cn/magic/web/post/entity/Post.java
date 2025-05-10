@@ -8,9 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.apache.ibatis.type.JdbcType;
 
-import java.beans.Transient;
 import java.util.Date;
 import java.util.List;
 
@@ -36,6 +34,7 @@ public class Post {
     @TableField(typeHandler = JacksonTypeHandler.class)
     private List<String> coverImages;
     private Boolean hasImages = false;
+    private Long reviewCount;
 
     // 从这里开始下面都是表里没有的，其他东西
 

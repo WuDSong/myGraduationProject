@@ -16,4 +16,5 @@ public class Board {
     private Long sortOrder;
     private String status;
     private Boolean isDeleted;
+    private Long creatorId;
 }

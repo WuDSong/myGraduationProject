@@ -6,6 +6,6 @@
         SELECT m.*
         FROM role_menu rm
         JOIN sys_menu m ON rm.mid = m.mid
-        WHERE rm.rid = #{rid};
+        WHERE rm.rid = #{rid} ORDER BY m.sort ASC;
     </select>
 </mapper>

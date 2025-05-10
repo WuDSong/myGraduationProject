@@ -18,4 +18,5 @@ public class MenuVo { //菜单
     private String path;
     private String icon;
     private List<MenuVo> children =new ArrayList<>();
+    private Integer menuType;
 }
