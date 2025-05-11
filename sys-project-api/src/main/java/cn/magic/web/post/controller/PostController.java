@@ -109,6 +109,7 @@ public class PostController {
     }
 
     // 删除帖子:完全删除,先删除post_topic 等等
+    @Transactional
     @DeleteMapping("/{postId}")
     public ResultVo deletePost(@PathVariable Long postId) {
         if (postService.deletePostById(postId)) {
@@ -117,6 +118,7 @@ public class PostController {
         return ResultVo.error("删除失败!");
     }
     // 伪删除
+    @Transactional
     @DeleteMapping("/del/{postId}")
     public ResultVo delPost(@PathVariable Long postId) {
         Post post = postService.getById(postId);
@@ -244,6 +246,10 @@ public class PostController {
 
         return ResultVo.success("查找成功", page);
     }
+
+    // 分页查询查找待二审的帖子  一审默认执行过了
+
+
 
     //  获取我的帖子 （正常/审核中/审核后）
     @GetMapping("/myPost/{userId}")

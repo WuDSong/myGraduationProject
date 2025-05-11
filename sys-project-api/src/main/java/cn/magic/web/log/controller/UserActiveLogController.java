@@ -34,7 +34,7 @@ public class UserActiveLogController {
         } finally {
             if (flag) {
                 return ResultVo.success("添加成功");
-            } else return ResultVo.error("添加用户日志失败,因为今天用户已经登录");
+            } else return ResultVo.success("添加用户日志失败,因为今天用户已经登录");
         }
     }
 

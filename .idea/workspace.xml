@@ -4,31 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0db92583-e6f6-41c2-b976-cb1e027c2f18" name="Changes" comment="增加获取用户草稿api;完成举报的创建api;">
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/config/websocket/WebSocketConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/log/controller/UserActiveLogController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/log/entity/UserActiveLog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/log/entity/UserCountVo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/log/mapper/UserActiveLogMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/log/service/UserActiveLogService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/log/service/impl/UserActiveLogServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/webSocket/controller/MessageController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/webSocket/entity/Message.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/webSocket/entity/PostUpdateMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/entity/ForgetParam.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/entity/UpdatePasswordParam.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sys-project-com/src/main/java/cn/magic/utils/PastDate.java" afterDir="false" />
+    <list default="true" id="0db92583-e6f6-41c2-b976-cb1e027c2f18" name="Changes" comment="增加获取我的板块api,实现忘记密码、修改密码功能,修复菜单按钮显示bug并按照sort排序,webSocket初始化,实现获取用户注册和活动的统计。">
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/test/AuthService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/test/FileUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/test/HttpUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/test/ImgCensor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/test/TextCensor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/webSocket/controller/PostReviewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sys-project-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/controller/BoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/entity/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/entity/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/config/mybatis/MyBatisPlusConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/config/mybatis/MyBatisPlusConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/log/controller/UserActiveLogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/log/controller/UserActiveLogController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/controller/PostController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/Post.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_menu/entity/MakeMenuTreeUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_menu/entity/MakeMenuTreeUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_menu/entity/MenuVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_menu/entity/MenuVo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_user/controller/SysUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_user/controller/SysUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/controller/WxUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/controller/WxUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/resources/mapper/SysMenuMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/resources/mapper/SysMenuMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/PostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/impl/PostServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/impl/PostServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/report/controller/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/report/controller/ReportController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/resources/mapper/PostMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/resources/mapper/PostMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +72,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Mycode/MyGraduationProject/back-endServer/sys-project-api/src/main/java/cn/magic/web&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Mycode/MyGraduationProject/back-endServer/sys-project-api/src/main/java/cn/magic/test&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -95,11 +87,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Mycode\MyGraduationProject\back-endServer\sys-project-api\src\main\java\cn\magic\test" />
       <recent name="E:\Mycode\MyGraduationProject\back-endServer\sys-project-api\src\main\java\cn\magic\web" />
       <recent name="E:\Mycode\MyGraduationProject\back-endServer\sys-project-api\src\main\java\cn\magic\web\template" />
       <recent name="E:\Mycode\MyGraduationProject\back-endServer\sys-project-api\src\main\java\cn\magic\web\like" />
       <recent name="E:\Mycode\MyProject\myWebSite\sys-project\sys-project-api\src\main\java\cn\magic\web\video" />
-      <recent name="E:\Mycode\汉云实习\安徽工业大学秀山校区\后端项目\sys-project\sys-project-api\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Mycode\汉云实习\安徽工业大学秀山校区\后端项目\sys-project\sys-project-api\src\main\java\cn\magic\web\goods_category\mapper" />
@@ -109,7 +101,20 @@
       <recent name="cn.magic.web.sys_menu.entity" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.SysProjectApplication">
+  <component name="RunManager" selected="应用程序.ImgCensor">
+    <configuration name="ImgCensor" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cn.magic.review.ImgCensor" />
+      <module name="sys-project-api" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cn.magic.review.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ImgChecker" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="cn.magic.utils.ImgChecker" />
       <module name="sys-project-com" />
@@ -138,6 +143,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="应用程序.ImgCensor" />
         <item itemvalue="Spring Boot.SysProjectApplication" />
         <item itemvalue="应用程序.ImgChecker" />
       </list>
@@ -345,7 +351,11 @@
       <workItem from="1746759473556" duration="984000" />
       <workItem from="1746774588859" duration="16608000" />
       <workItem from="1746846193028" duration="3612000" />
-      <workItem from="1746861609726" duration="12474000" />
+      <workItem from="1746861609726" duration="13232000" />
+      <workItem from="1746927932510" duration="6393000" />
+      <workItem from="1746937173521" duration="5000" />
+      <workItem from="1746957155799" duration="2157000" />
+      <workItem from="1746968282774" duration="999000" />
     </task>
     <task id="LOCAL-00001" summary="firstPush">
       <created>1741497062901</created>
@@ -445,7 +455,14 @@
       <option name="project" value="LOCAL" />
       <updated>1746783403305</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="增加获取我的板块api,实现忘记密码、修改密码功能,修复菜单按钮显示bug并按照sort排序,webSocket初始化,实现获取用户注册和活动的统计。">
+      <created>1746890012639</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1746890012639</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -492,7 +509,8 @@
     <MESSAGE value="优化board添加时设置默认值，新增申请api;新增获取收藏列表api;修复12小时制时间为24小时;新增通过分页查找相同版区的帖子api,修复根据ID查询单个帖子（完整信息）不完善,完善分页查找带用户信息正常帖子并添加服务查找带用户信息正常帖子;新增通过用户id 查找用户。" />
     <MESSAGE value="增加了返回父评论内容,实现评论的软删除,修复获取父评论的逻辑,增加获取我的评论和我的父评论api" />
     <MESSAGE value="增加获取用户草稿api;完成举报的创建api;" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加获取用户草稿api;完成举报的创建api;" />
+    <MESSAGE value="增加获取我的板块api,实现忘记密码、修改密码功能,修复菜单按钮显示bug并按照sort排序,webSocket初始化,实现获取用户注册和活动的统计。" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加获取我的板块api,实现忘记密码、修改密码功能,修复菜单按钮显示bug并按照sort排序,webSocket初始化,实现获取用户注册和活动的统计。" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -8,8 +8,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements PostService{
@@ -35,6 +34,54 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
     public IPage<Post> getPostListWithUserInfo(PostParam param) {
         Page<Post> page = new Page<>(param.getCurPage(), param.getPageSize());
         return this.baseMapper.getPostListWithUserInfo(page,param.getTitle());
+    }
+
+    @Override
+    @Transactional
+    public boolean lockPost(Long id) {
+        Post post = getById(id); // SELECT时获取当前version值
+        if (post != null && !post.isLocked()) {
+            post.setLocked(true);
+            return updateById(post); // 自动生成：UPDATE ... SET ..., version=version+1 WHERE id=... AND version=查询时的version
+        }
+        return false;
+    }
+
+    @Override
+    @Transactional
+    public boolean unlockPost(Long id) {
+        Post post = getById(id);
+        if (post != null && post.isLocked()) {
+            post.setLocked(false);
+            return updateById(post);
+        }
+        return false;
+    }
+
+    @Override
+    @Transactional
+    public boolean approvePost(Long id) {
+        Post post = getById(id);
+        if (post != null && post.isLocked()) {
+            post.setReviewCount(post.getReviewCount()+1);
+            post.setStatus("normal");
+            post.setLocked(false);
+            return updateById(post);
+        }
+        return false;
+    }
+
+    @Override
+    @Transactional
+    public boolean rejectPost(Long id) {
+        Post post = getById(id);
+        if (post != null && post.isLocked()) {
+            post.setReviewCount(post.getReviewCount()+1);
+            post.setStatus("review_rejected");
+            post.setLocked(false);
+            return updateById(post);
+        }
+        return false;
     }
 
 

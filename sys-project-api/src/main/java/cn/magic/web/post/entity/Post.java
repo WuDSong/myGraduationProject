@@ -1,10 +1,7 @@
 package cn.magic.web.post.entity;
 
 import cn.magic.web.topic.entity.Topic;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -35,6 +32,9 @@ public class Post {
     private List<String> coverImages;
     private Boolean hasImages = false;
     private Long reviewCount;
+    @Version
+    private Integer version; // 必须与数据库字段一致
+    private boolean isLocked =false;   // 用于表示帖子是否被锁定
 
     // 从这里开始下面都是表里没有的，其他东西
 
@@ -46,8 +46,8 @@ public class Post {
 
     // 小程序列表展示时还需要的内容
     @TableField(exist = false)
-    private String avatarUrl;   //用户头像,小程序展示用户头像
+    private String avatarUrl;   // 用户头像,小程序展示用户头像
     @TableField(exist = false)
-    private String username;    //发布者用户名，上面那个只有用户名
+    private String username;    // 发布者用户名，上面那个只有用户名
 
 }
