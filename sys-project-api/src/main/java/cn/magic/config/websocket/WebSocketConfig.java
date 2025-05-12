@@ -1,4 +1,4 @@
-package cn.magic.web.config.websocket;
+package cn.magic.config.websocket;
 
 
 import org.springframework.context.annotation.Configuration;

@@ -24,7 +24,6 @@ public class SysProjectApplication {
         System.out.println("wds");
         System.out.println("Welcome to OpenCV " + Core.VERSION);
         System.loadLibrary(NATIVE_LIBRARY_NAME);
-
         //读取图片
         Mat imread = imread("E:\\Mycode\\MyGraduationProject\\image\\3615d15a-3e25-4240-865d-171feb6be8a8.jpg");
         //显示窗口

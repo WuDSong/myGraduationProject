@@ -34,3 +34,9 @@ logging:
 web:
   upload-path: E:/Mycode/MyGraduationProject/image/   #图片上传的路径
   load-path: file:E://Mycode//MyGraduationProject//image/ #图片访问、加载的路径
+
+# 百度云配置
+baidu:
+  cloud:
+    api-key: DG22CX7cUsNWI9yZWTE0SRaJ                 # 官网获取的 API Key 更新为你注册的
+    secret-key: i0FhJ2mZ6aUgO52wfuU1zxiOZsPvi2xS      # 官网获取的 Secret Key 更新为你注册的

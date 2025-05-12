@@ -61,6 +61,12 @@ public class PostController {
         return urls;
     }
 
+    // 使用 Jsoup 解析 HTML 内容获取纯文本内容
+    public String extractTextContent(String htmlContent) {
+        Document doc = Jsoup.parse(htmlContent);
+        return doc.text();
+    }
+
     //检测帖子的话题是否有效
     public boolean checkTopicIds(List<Integer> topicIdList) {
         if (topicIdList != null && topicIdList.size() > 0) {
@@ -86,23 +92,27 @@ public class PostController {
         if (!boardExists) {
             ResultVo.error("版区不存在或已被封禁");
         }
-        if (post.getTopicIds().size() > 0 && !checkTopicIds(post.getTopicIds())) {
+        if (post.getTopicIds() != null&&post.getTopicIds().size() > 0 && !checkTopicIds(post.getTopicIds())) {
             return ResultVo.error("话题不存在或已被封禁");
         }
         // 验证通过
         logger.info(" 验证通过！ 新增一条帖子-ing");
-        post.setReviewCount(null);
-        // post封面处理
+        post.setReviewCount(0L); // 审核次数0
+        // post封面处理 图片处理
         List<String> imgCoverArrays = extractImageUrls(post.getContent());
         if (imgCoverArrays.size() != 0) { //如果有图片
             post.setHasImages(true);
             post.setCoverImages(imgCoverArrays);
         }
+        // post内容处理
+        post.setContentText(extractTextContent(post.getContent()));
         if (postService.save(post)) {
             //保存了post
             if (post.getTopicIds() != null && post.getTopicIds().size() > 0)
                 postService.addTopicForPost(post);
             logger.info("新增一条帖子成功");
+            // 调用 审核函数
+            postService.processAfterBothAsyncMethods(post);
             return ResultVo.success("上传帖子成功!");
         }
         return ResultVo.error("上传帖子失败!");

@@ -1,4 +1,4 @@
-package cn.magic.web.config.mybatis;
+package cn.magic.config.mybatis;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;

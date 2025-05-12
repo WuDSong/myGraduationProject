@@ -1,4 +1,4 @@
-package cn.magic.web.config.imagecode;
+package cn.magic.config.imagecode;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;

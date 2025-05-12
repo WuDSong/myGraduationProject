@@ -1,4 +1,4 @@
-package cn.magic.review;
+package cn.magic.baiduReview.utils;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

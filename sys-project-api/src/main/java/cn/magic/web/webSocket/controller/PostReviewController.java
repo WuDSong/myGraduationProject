@@ -8,6 +8,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 
+// 后台使用
 @Controller
 public class PostReviewController {
     // 处理客户端发送到/app/(MessageMapping)的消息   ,并广播到/topic/postUpdates

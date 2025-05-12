@@ -1,6 +1,7 @@
-package cn.magic.review;
+package cn.magic.baiduReview.service;
 
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -12,33 +13,37 @@ import java.util.Map;
 /**
  * 获取token类
  */
+@Component  // 添加 Spring 组件注解
 public class AuthService {
+    private static String cachedAccessToken;
+    private static long expirationTime;
+    private static final Object lock = new Object();  // 同步锁
 
     /**
-     * 获取权限token
-     * @return 返回示例：
-     * {
-     * "access_token": "24.460da4889caad24cccdb1fea17221975.2592000.1491995545.282335-1234567",
-     * "expires_in": 2592000
-     * }
+     * 检查 access_token 是否过期
+     * @return 如果过期返回 true，否则返回 false
      */
-    public static String getAuth() {
-        // 官网获取的 API Key 更新为你注册的
-        String clientId = "DG22CX7cUsNWI9yZWTE0SRaJ";//百度云应用的AK
-        // 官网获取的 Secret Key 更新为你注册的
-        String clientSecret = "i0FhJ2mZ6aUgO52wfuU1zxiOZsPvi2xS";//百度云应用的SK
-        return getAuth(clientId, clientSecret);
+    private static boolean isTokenExpired() {
+        return cachedAccessToken == null || System.currentTimeMillis() >= expirationTime;
     }
 
     /**
-     * 获取API访问token
-     * 该token有一定的有效期，需要自行管理，当失效时需重新获取.
-     * @param ak - 百度云官网获取的 API Key
-     * @param sk - 百度云官网获取的 Securet Key
-     * @return assess_token 示例：
-     * "24.460da4889caad24cccdb1fea17221975.2592000.1491995545.282335-1234567"
+     * 获取权限token（改造为实例方法）
      */
-    public static String getAuth(String ak, String sk) {
+    public String getAuth() {  // 移除 static
+        String clientId = "DG22CX7cUsNWI9yZWTE0SRaJ";
+        String clientSecret = "i0FhJ2mZ6aUgO52wfuU1zxiOZsPvi2xS";
+        synchronized (lock) {  // 同步块保证线程安全
+            if (isTokenExpired()) {
+                System.out.println("重新获取 access_token");
+                cachedAccessToken = getAuth(clientId, clientSecret);
+            }
+        }
+        return cachedAccessToken;
+    }
+
+    // 其他代码保持原样（移除 static）
+    public String getAuth(String ak, String sk) {
         // 获取token地址
         String authHost = "https://aip.baidubce.com/oauth/2.0/token?";
         String getAccessTokenUrl = authHost
@@ -73,16 +78,19 @@ public class AuthService {
             System.err.println("result:" + result);
             JSONObject jsonObject = new JSONObject(result);
             String access_token = jsonObject.getString("access_token");
+            long expiresIn = jsonObject.getLong("expires_in");
+            // 计算过期时间
+            expirationTime = System.currentTimeMillis() + (expiresIn * 1000);
             return access_token;
         } catch (Exception e) {
             System.err.printf("获取token失败！");
             e.printStackTrace(System.err);
         }
         return null;
+
     }
 
     public static void main(String[] args) {
-        getAuth();
+        // 测试代码需调整为通过 Spring 容器调用
     }
-
 }

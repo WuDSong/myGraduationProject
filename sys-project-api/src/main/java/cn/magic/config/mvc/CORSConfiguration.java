@@ -1,4 +1,4 @@
-package cn.magic.web.config.mvc;
+package cn.magic.config.mvc;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

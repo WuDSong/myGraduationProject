@@ -20,4 +20,8 @@ public interface PostService extends IService<Post> {
 
     public boolean approvePost(Long id);
     public boolean rejectPost(Long id);
+
+    //审核post
+    public void processAfterBothAsyncMethods(Post post);
+    // 审核 图片和文本 processAfterBothAsyncMethods() 会阻塞直到异步任务完成，因此它本质上是一个同步方法（虽然内部调用了异步方法）。
 }

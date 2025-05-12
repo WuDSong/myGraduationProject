@@ -1,4 +1,4 @@
-package cn.magic.web.config.tomcat;
+package cn.magic.config.tomcat;
 
 import org.apache.catalina.connector.Connector;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
