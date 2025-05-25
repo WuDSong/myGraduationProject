@@ -155,7 +155,11 @@ public class SysUserController {
         } else {
             menuList = sysMenuService.getMenuByUserRoleId(user.getRid());
         }
+        System.out.println(menuList);
+        System.out.println(menuList.isEmpty());
         List<MenuVo> menuRouterTree = MakeMenuTreeUtil.makeRouterTree(menuList,0); //当前已经登录的用户的菜单树
+        System.out.println("-------------------------");
+        System.out.println(menuRouterTree.isEmpty());
         // 生成codes
         List<String> codeList = Optional.ofNullable(menuList).orElse(new ArrayList<>()).
                 stream().map(item -> item.getPerms()).collect(Collectors.toList());

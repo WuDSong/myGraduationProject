@@ -34,8 +34,6 @@ public class Post {
     private Long reviewCount;
     @Version
     private Integer version; // 必须与数据库字段一致
-    private boolean isLocked =false;   // 用于表示帖子是否被锁定
-
     // 从这里开始下面都是表里没有的，其他东西
 
     // 话题处理

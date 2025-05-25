@@ -16,6 +16,13 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+  # redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 123456
+      database: 0
 
 #mybatis plus配置
 mybatis-plus:
@@ -26,9 +33,9 @@ mybatis-plus:
       #配置mybatis plus 在更新时只更新非空和非NULL的字段
       update-strategy: not_empty
 #日志配置
-logging:
-  pattern:
-    console: '%d{yyyy-MM-dd} [%thread] %-5level %logger- %msg%n'
+#logging:
+#  pattern:
+#    console: '%d{yyyy-MM-dd} [%thread] %-5level %logger- %msg%n'
 
 #图片上传
 web:
@@ -40,3 +47,5 @@ baidu:
   cloud:
     api-key: DG22CX7cUsNWI9yZWTE0SRaJ                 # 官网获取的 API Key 更新为你注册的
     secret-key: i0FhJ2mZ6aUgO52wfuU1zxiOZsPvi2xS      # 官网获取的 Secret Key 更新为你注册的
+
+

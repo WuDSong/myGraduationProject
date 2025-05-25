@@ -4,6 +4,7 @@ import cn.magic.web.comment.entity.Comment;
 import cn.magic.web.comment.entity.CommentParam;
 import cn.magic.web.comment.service.CommentService;
 import cn.magic.web.like.service.LikeService;
+import cn.magic.web.post.entity.Post;
 import cn.magic.web.wx_user.entity.WxUser;
 import cn.magic.web.wx_user.service.WxUserService;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
@@ -64,6 +65,7 @@ public class CommentController {
     }
 
     //删除 （伪删除）
+    @Transactional
     @DeleteMapping("/{id}")
     public ResultVo delete(@PathVariable("id") Long id) {
 /* 直接删除还需要更新孩子path等等 所以采用逻辑删除
@@ -122,7 +124,8 @@ public class CommentController {
     public ResultVo getChildrenList(CommentParam param){
         IPage<Comment> page = new Page<>(param.getCurPage(),param.getPageSize());
         QueryWrapper<Comment> query = new QueryWrapper<>();
-        query.lambda().eq(Comment::getPostId,param.getPostId()).eq(Comment::getParentId,param.getCommentId()).eq(Comment::getStatus,"normal");
+        query.lambda().eq(Comment::getPostId,param.getPostId()).eq(Comment::getParentId,param.getCommentId())
+                .eq(Comment::getStatus,"normal");
         IPage<Comment> commentIPage = commentService.page(page, query);
         // 数据处理
         List<Comment> topList =commentIPage.getRecords();
@@ -239,5 +242,12 @@ public class CommentController {
         }
         return ResultVo.success("查找我的评论成功 ",commentIPage);
     }
-
+    // 统计正常评论数量
+    @GetMapping("/countOfNormal")
+    public ResultVo getCountOfNormal(){
+        QueryWrapper<Comment> queryWrapper =new QueryWrapper<>();
+        queryWrapper.lambda().eq(Comment::getStatus,"normal");
+        Long num =commentService.count(queryWrapper);
+        return ResultVo.success("统计正常post数量",num);
+    }
 }

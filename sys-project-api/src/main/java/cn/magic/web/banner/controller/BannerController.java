@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -68,14 +69,26 @@ public class BannerController {
         List<Banner> list = bannerService.list();
         return ResultVo.success("查询成功", list);
     }
+
     // 查找有效的banner,查询小程序首页轮播图数据,且排序
     @GetMapping("/getActiveBanner")
-    public ResultVo getActiveBanner(){
+    public ResultVo getActiveBanner() {
+        Date currentTime = new Date();
         QueryWrapper<Banner> query = new QueryWrapper<>();
-        query.lambda().eq(Banner::getIsActive,"1") //上架状态
+        query.lambda()
+                .eq(Banner::getIsActive, "1")
+                .and(wrapper -> {
+                    wrapper
+                            .isNull(Banner::getStartTime)
+                            .and(innerWrapper -> innerWrapper.isNull(Banner::getEndTime).or().gt(Banner::getEndTime, currentTime))
+                            .or()
+                            .isNotNull(Banner::getStartTime)
+                            .lt(Banner::getStartTime, currentTime)
+                            .and(innerWrapper -> innerWrapper.isNull(Banner::getEndTime).or().gt(Banner::getEndTime, currentTime));
+                })
                 .orderByAsc(Banner::getSortOrder);
         List<Banner> list = bannerService.list(query);
-        return ResultVo.success("查询成功",list);
+        return list.isEmpty()? ResultVo.error("没有找到有效的轮播图") : ResultVo.success("查询成功", list);
     }
 
     //判断是否被占用

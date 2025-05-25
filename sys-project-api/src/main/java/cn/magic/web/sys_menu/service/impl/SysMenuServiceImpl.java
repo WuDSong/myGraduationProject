@@ -14,4 +14,9 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     public List<SysMenu> getMenuByUserRoleId(Long rid) {
         return this.baseMapper.getMenuByUserId(rid);
     }
+
+    @Override
+    public boolean delMenuInRole(Long menuId) {
+        return this.baseMapper.delMenuInRole(menuId);
+    }
 }

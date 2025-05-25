@@ -3,6 +3,7 @@ package cn.magic.web.role.service;
 import cn.magic.web.role.entity.AssignMenuParams;
 import cn.magic.web.role.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,6 +12,6 @@ public interface RoleService extends IService<Role> {
     List<Role> getRoleListWithUserCount(String roleName);
     //  获取当前rid下的用户数量
     Long getUserCountByRid(Long rid);
-
+    @Transactional
     boolean saveMenu(AssignMenuParams params);
 }

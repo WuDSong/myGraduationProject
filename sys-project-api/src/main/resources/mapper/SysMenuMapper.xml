@@ -8,4 +8,10 @@
         JOIN sys_menu m ON rm.mid = m.mid
         WHERE rm.rid = #{rid} ORDER BY m.sort ASC;
     </select>
+
+    <delete id="delMenuInRole">
+        DELETE FROM role_menu
+        WHERE mid = #{menuId}
+    </delete>
+
 </mapper>

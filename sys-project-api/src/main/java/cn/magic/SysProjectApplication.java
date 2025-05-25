@@ -4,6 +4,7 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 import static org.opencv.core.Core.NATIVE_LIBRARY_NAME;
 import static org.opencv.highgui.HighGui.*;
@@ -15,6 +16,7 @@ import static org.opencv.imgcodecs.Imgcodecs.imwrite;
  *
  */
 @SpringBootApplication
+@EnableCaching
 public class SysProjectApplication {
     public static void main( String[] args ) {
 

@@ -23,7 +23,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Override
     public boolean saveMenu(AssignMenuParams params) {
-        // 先删除
+        // 先删除 所有权限
         this.baseMapper.delRoleAllMenu(params.getRid());
         // 后添加
         boolean insert =this.baseMapper.addRoleMenus(params.getRid(),params.getMenuIds());

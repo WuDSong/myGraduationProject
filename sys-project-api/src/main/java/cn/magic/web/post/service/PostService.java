@@ -12,16 +12,12 @@ public interface PostService extends IService<Post> {
     boolean deletePostById(Long postId);
     // 通过id删除post的话题
     boolean deleteTopicByPostId(Long postId);
-    // 查找post带用户信息
+    // 分页查找post带用户信息
     IPage<Post> getPostListWithUserInfo(PostParam param);
-
-    public boolean lockPost(Long id);
-    public boolean unlockPost(Long id);
-
-    public boolean approvePost(Long id);
-    public boolean rejectPost(Long id);
-
     //审核post
     public void processAfterBothAsyncMethods(Post post);
     // 审核 图片和文本 processAfterBothAsyncMethods() 会阻塞直到异步任务完成，因此它本质上是一个同步方法（虽然内部调用了异步方法）。
+
+    // 通过id 将post状态设置为审核失败状态
+    boolean rejectedPost(Long id);
 }

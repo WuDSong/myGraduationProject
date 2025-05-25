@@ -9,6 +9,8 @@ import cn.magic.web.post.entity.MyPostVo;
 import cn.magic.web.post.entity.Post;
 import cn.magic.web.post.entity.PostParam;
 import cn.magic.web.post.service.PostService;
+import cn.magic.web.report.entity.Report;
+import cn.magic.web.report.service.ReportService;
 import cn.magic.web.topic.entity.Topic;
 import cn.magic.web.topic.service.TopicService;
 import cn.magic.web.wx_user.entity.WxUser;
@@ -44,6 +46,9 @@ public class PostController {
     private TopicService topicService;
     @Autowired
     private WxUserService wxUserService;
+
+    @Autowired
+    private ReportService reportService;
 
     // 使用Jsoup解析HTML内容获取图片路径
     public List<String> extractImageUrls(String htmlContent) {
@@ -301,6 +306,15 @@ public class PostController {
             basePostInfoVos.add(b);
         }
         return ResultVo.success("查找我的草稿成功",basePostInfoVos);
+    }
+
+    // 统计正常post数量
+    @GetMapping("/countOfNormal")
+    public ResultVo getCountOfNormal(){
+        QueryWrapper<Post> queryWrapper =new QueryWrapper<>();
+        queryWrapper.lambda().eq(Post::getStatus,"normal");
+        Long num =postService.count(queryWrapper);
+        return ResultVo.success("统计正常post数量",num);
     }
 
 }

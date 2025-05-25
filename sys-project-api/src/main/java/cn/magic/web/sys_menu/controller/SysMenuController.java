@@ -10,8 +10,10 @@ import cn.magic.web.sys_menu.entity.SysMenu;
 import cn.magic.web.sys_menu.service.SysMenuService;
 import cn.magic.web.sys_user.entity.SysUser;
 import cn.magic.web.sys_user.service.SysUserService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -52,8 +54,12 @@ public class SysMenuController {
     }
 
     //删除
+    @Transactional
     @DeleteMapping("/{id}")
     public ResultVo delete(@PathVariable("id") Long id) {
+        // 先删除 角色菜单映射表
+        sysMenuService.delMenuInRole(id);
+        //
         if (sysMenuService.removeById(id)) {
             return ResultVo.success("删除成功!");
         }
@@ -63,6 +69,8 @@ public class SysMenuController {
     //查找所有menu列表
     @GetMapping("/allList")
     public ResultVo getAllList() {
+//        QueryWrapper<SysMenu> queryWrapper =new QueryWrapper<>();
+//        queryWrapper.lambda().eq(SysMenu::getIsDeleted,0);
         List<SysMenu> list = sysMenuService.list();
         return ResultVo.success("查询所有列表成功", list);
     }
@@ -130,5 +138,24 @@ public class SysMenuController {
         assignMenuVo.setCurrentUserMenuTree(tree);
         assignMenuVo.setCheckList(ids.toArray());
         return ResultVo.success("查找成功", assignMenuVo);
+    }
+
+    // 查找当前用户路由树
+    @GetMapping("/getCurrentUserTree/{userId}")
+    public ResultVo getCurrentTree(@PathVariable("userId") Long userId){
+        SysUser user = sysUserService.getById(userId);
+        // 查找菜单树
+        List<SysMenu> menuList = null;
+        QueryWrapper<SysMenu> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().orderByAsc(SysMenu::getSort);
+        if (StringUtils.isNotEmpty(user.getIsAdmin()) &&
+                "1".equals(user.getIsAdmin())) {
+            menuList = sysMenuService.list(queryWrapper);
+        } else {
+            menuList = sysMenuService.getMenuByUserRoleId(user.getRid());
+        }
+        List<MenuVo> menuRouterTree = MakeMenuTreeUtil.makeRouterTree(menuList,0); //当前已经登录的用户的菜单树
+
+        return ResultVo.success("更新后的路由树查找成功",menuRouterTree);
     }
 }

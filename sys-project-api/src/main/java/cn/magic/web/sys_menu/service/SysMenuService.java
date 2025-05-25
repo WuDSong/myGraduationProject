@@ -7,4 +7,6 @@ import java.util.List;
 public interface SysMenuService extends IService<SysMenu> {
 //    查找用户的menu
     List<SysMenu> getMenuByUserRoleId(Long rid);
+
+    boolean delMenuInRole(Long menuId);
 }

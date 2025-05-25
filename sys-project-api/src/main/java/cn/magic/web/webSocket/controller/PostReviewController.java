@@ -1,7 +1,9 @@
 package cn.magic.web.webSocket.controller;
 
 import cn.magic.utils.ResultVo;
+import cn.magic.web.post.entity.Post;
 import cn.magic.web.post.service.PostService;
+import cn.magic.web.webSocket.entity.PostUpdateMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -19,30 +21,7 @@ public class PostReviewController {
     @SendTo("/topic/postUpdates")  //	SimpMessagingTemplate 可以用在任何地方  @SendTo只能在控制类
     public ResultVo lockPost(Long postId) {
         System.out.println("锁定");
-        if(postService.lockPost(postId))
-            return ResultVo.success("对帖子锁定成功");
-        else return ResultVo.success("对帖子锁定失败,当前帖子已经被锁定");
-        // 等价于  messagingTemplate.convertAndSend("/topic/postUpdates", resultVo);
-    }
-
-    @MessageMapping("/approvePost")
-    @SendTo("/topic/postUpdates")
-    public boolean approvePost(Long postId) {
-        System.out.println("解锁");
-        return postService.approvePost(postId);
-    }
-
-    @MessageMapping("/rejectPost")
-    @SendTo("/topic/postUpdates")
-    public boolean rejectPost(Long postId) {
-        System.out.println("失败");
-        return postService.rejectPost(postId);
-    }
-
-    @MessageMapping("/unlockPost")
-    @SendTo("/topic/postUpdates")
-    public boolean unlockPost(Long postId) {
-        System.out.println("通过");
-        return postService.unlockPost(postId);
+        // 更新其他的版本号
+        return ResultVo.error("对帖子锁定失败,当前帖子已经被锁定");
     }
 }

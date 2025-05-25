@@ -12,16 +12,16 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@TableName(value = "report")
+@TableName(value = "report",autoResultMap = true)
 public class Report {
     @TableId(type = IdType.AUTO)
     private Long reportId;
     private String userId;
     private String targetType;  //类型
-    private Long targetId;    //对应id
+    private Long targetId;      //对应id
     private String reason;      //举报 / 申请理由
     @TableField(typeHandler = JacksonTypeHandler.class)
-    private List<String> images;
+    private List<String> images; //提供图片
     private String status;
     private String handledBy;  //处理人
     private String result;     //处理结果

@@ -37,10 +37,27 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
     }
 
     @Override
+    @Transactional
     public boolean deletePostById(Long postId) {
 //        先删除关联的数据
-        this.baseMapper.deletePostTopicByPostId(postId);
-        return removeById(postId);
+//        this.baseMapper.deletePostTopicByPostId(postId);
+//        return removeById(postId);
+        Post post = getById(postId);
+        if(post==null)
+            return false;
+        post.setStatus("deleted");
+        updateById(post);
+        return true;
+    }
+    @Override
+    @Transactional
+    public boolean rejectedPost(Long id) {
+        Post post = getById(id);
+        if(post==null)
+            return false;
+        post.setStatus("review_rejected");
+        updateById(post);
+        return true;
     }
 
     @Override
@@ -52,56 +69,6 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
     public IPage<Post> getPostListWithUserInfo(PostParam param) {
         Page<Post> page = new Page<>(param.getCurPage(), param.getPageSize());
         return this.baseMapper.getPostListWithUserInfo(page, param.getTitle());
-    }
-
-    // -----------------------控制审核流程 防止前端人工审核时 多个用户对同一个post操作---------------------------------------------
-
-    @Override
-    @Transactional
-    public boolean lockPost(Long id) {
-        Post post = getById(id); // SELECT时获取当前version值
-        if (post != null && !post.isLocked()) {
-            post.setLocked(true);
-            return updateById(post); // 自动生成：UPDATE ... SET ..., version=version+1 WHERE id=... AND version=查询时的version
-        }
-        return false;
-    }
-
-    @Override
-    @Transactional
-    public boolean unlockPost(Long id) {
-        Post post = getById(id);
-        if (post != null && post.isLocked()) {
-            post.setLocked(false);
-            return updateById(post);
-        }
-        return false;
-    }
-
-    @Override
-    @Transactional
-    public boolean approvePost(Long id) {
-        Post post = getById(id);
-        if (post != null && post.isLocked()) {
-            post.setReviewCount(post.getReviewCount() + 1);
-            post.setStatus("normal");
-            post.setLocked(false);
-            return updateById(post);
-        }
-        return false;
-    }
-
-    @Override
-    @Transactional
-    public boolean rejectPost(Long id) {
-        Post post = getById(id);
-        if (post != null && post.isLocked()) {
-            post.setReviewCount(post.getReviewCount() + 1);
-            post.setStatus("review_rejected");
-            post.setLocked(false);
-            return updateById(post);
-        }
-        return false;
     }
 
     // 审核 图片和文本 processAfterBothAsyncMethods() 会阻塞直到异步任务完成，因此它本质上是一个同步方法（虽然内部调用了异步方法）。
@@ -159,6 +126,8 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
         });
 
     }
+
+
 
     // 审核修改状态
     @Transactional
