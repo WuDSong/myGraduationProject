@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements PostService {
@@ -33,6 +32,7 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
 
     @Override
     public boolean addTopicForPost(Post post) {
+        // 数据库会使用触发器进行更新topic的参与人数
         return this.baseMapper.insertPostTopic(post.getPostId(), post.getTopicIds());
     }
 
@@ -72,18 +72,17 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
     }
 
     // 审核 图片和文本 processAfterBothAsyncMethods() 会阻塞直到异步任务完成，因此它本质上是一个同步方法（虽然内部调用了异步方法）。
-    @Override
+//    @Override
     @Transactional // 整个审核流程在一个事务中
-    public void processAfterBothAsyncMethods(Post post) {
+    public void processAfterBothAsyncMethods1(Post post) {
         // 百度 Open api qps request limit reached
-
         //  提取所有需要审核的内容
         String title = post.getTitle();
         String contentText = post.getContentText();
         List<String> images = post.getCoverImages();
+        String videoUrl= post.getVideoPath();
         //  创建存储所有异步任务的列表
         List<CompletableFuture<?>> futures = new ArrayList<>();
-
         //添加文本审核任务
         String queryText=title+contentText;
         CompletableFuture<Boolean> textCheckFuture;
@@ -105,7 +104,10 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
                 imageCheckFutures.add(imageCheckFuture);
             }
         }
-
+        //检测视频
+        if(post.getHasVideo()){
+            System.out.println("检测视频");
+        }
         // 等待所有审核任务完成 任一图片失败立即终止：使用 anyMatch 快速失败。 并行结果合并：通过 allOf + 流处理优化。
         CompletableFuture<Void> allFutures = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
         allFutures.whenCompleteAsync((result, ex) -> {
@@ -124,7 +126,6 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
                 updatePostWithResult(post.getPostId(), false);
             }
         });
-
     }
 
 
@@ -141,6 +142,55 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
             post.setStatus("review_rejected");
         }
         updateById(post);
+    }
+
+
+
+    @Override
+    @Transactional // 整个审核流程在一个事务中
+    public void processAfterBothAsyncMethods(Post post) {
+        //  提取所有需要审核的内容
+        String title = post.getTitle();
+        String contentText = post.getContentText();
+        List<String> images = post.getCoverImages();
+        String videoUrl= post.getVideoPath();
+        // 创建存储所有异步任务的列表
+        List<CompletableFuture<?>> futures = new ArrayList<>();
+        // 添加文本审核任务 标题和内容一起审核
+        String queryText=title+contentText;
+        CompletableFuture<Boolean> textCheckFuture;
+        if(StringUtils.isNotEmpty(queryText)){
+            textCheckFuture = textCensor.TextCensor(queryText);
+            futures.add(textCheckFuture);
+        }else textCheckFuture =CompletableFuture.completedFuture(false); //没有内容就是非法
+        // 为每张图片创建异步审核任务
+        List<CompletableFuture<Boolean>> imageCheckFutures = new ArrayList<>();
+        if (images != null && !images.isEmpty() && post.getHasImages()) {
+            for (String imageUrl : images) {// 当图片 URL 非空时触发审核
+                CompletableFuture<Boolean> imageCheckFuture = StringUtils.isNotEmpty(imageUrl) ?
+                        imgCensor.ImgCensor(imageUrl) :
+                        CompletableFuture.completedFuture(true); //没有图片当然合法
+                futures.add(imageCheckFuture);    //任务
+                imageCheckFutures.add(imageCheckFuture);
+            }
+        }
+        // 等待所有审核任务完成，任一图片失败立即终止：使用 anyMatch 快速失败。并行结果合并：通过 allOf + 流处理优化。
+        CompletableFuture<Void> allFutures = CompletableFuture.allOf(futures.toArray(
+                new CompletableFuture[0]));
+        allFutures.whenCompleteAsync((result, ex) -> {
+            try {
+                if (ex != null) throw ex;
+                boolean isTextValid = textCheckFuture.get(); // 文本结果
+                // 图片结果（全部通过才算有效）allMatch检查流中的所有Boolean对象是否均为true。
+                boolean isAllImagesValid = imageCheckFutures.stream()
+                        .map(CompletableFuture::join).allMatch(Boolean::booleanValue);
+                // 更新状态
+                updatePostWithResult(post.getPostId(), isTextValid && isAllImagesValid);
+            } catch (Throwable e) {
+                logger.error("帖子审核失败 | postId={}", post.getPostId(), e);
+                updatePostWithResult(post.getPostId(), false);
+            }
+        });
     }
 }
 
@@ -179,3 +229,4 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
 //                rejectPost(post.getPostId()); // 标记为审核失败
 //            }
 //        });
+

@@ -16,6 +16,8 @@
         <result column="like_count" property="likeCount"/>
         <result column="status" property="status"/>
         <result column="has_images" property="hasImages"/>
+        <result column="has_video" property="hasVideo"/>
+        <result column="video_path" property="videoPath"/>
         <result column="is_locked" property="isLocked"/>
         <result column="version" property="version"/>
         <!-- 关键：指定cover_images的类型处理器 -->

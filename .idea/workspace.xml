@@ -4,14 +4,39 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0db92583-e6f6-41c2-b976-cb1e027c2f18" name="Changes" comment="尝试使用Redis,新增获取有效的Banner接口，修改基本的Post属性，为Board增加相关属性实现嵌套，新增获取Board树和待审核的版区Api,优化评论删除。完成举报相关的内容。修改删除菜单API,增加获取当前用户的路由树Api.">
+    <list default="true" id="0db92583-e6f6-41c2-b976-cb1e027c2f18" name="Changes" comment="完成版区搜索树，修复获取所有active顶级版块api并集成搜索功能。">
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/baiduReview/service/FaceDetect.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/baiduReview/utils/GsonUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_message/controller/SysMessageController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_message/entity/SysMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_message/mapper/SysMessageMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_message/service/SysMessageService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/sys_message/service/impl/SysMessageServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/upload/controller/UploadController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/webSocket/entity/SimpleAuthHandshakeInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/webSocket/entity/TokenAuthHandshakeInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/webSocket/entity/WxAuthHandshakeInterceptor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/baiduReview/service/ImgCensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/baiduReview/service/ImgCensor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/baiduReview/service/ImgCensor1.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/baiduReview/service/ImgCensorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/config/mvc/CORSConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/config/mvc/CORSConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/config/websocket/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/config/websocket/WebSocketConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/controller/BoardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/entity/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/entity/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/mapper/BoardMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/mapper/BoardMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/service/BoardService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/service/impl/BoardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/board/service/impl/BoardServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/log/entity/UserActiveLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/log/entity/UserActiveLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/image/controller/CaptchaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/upload/controller/CaptchaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/image/controller/FileUploadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/upload/controller/FileUploadController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/image/controller/ImageUploadController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/controller/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/entity/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/PostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/impl/PostServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/post/service/impl/PostServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/report/controller/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/report/controller/ReportController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/webSocket/controller/MessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/webSocket/controller/MessageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/webSocket/controller/PostReviewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/controller/WxUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/java/cn/magic/web/wx_user/controller/WxUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sys-project-api/src/main/resources/mapper/PostMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sys-project-api/src/main/resources/mapper/PostMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +47,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="spring-beans.schema" />
-        <option value="Interface" />
         <option value="Record" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -63,7 +88,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Mycode/MyGraduationProject/back-endServer/sys-project-api/src/main/java/cn/magic/test&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/图片/codeImg&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -78,11 +103,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Mycode\MyGraduationProject\back-endServer\sys-project-api\src\main\java\cn\magic\test" />
       <recent name="E:\Mycode\MyGraduationProject\back-endServer\sys-project-api\src\main\java\cn\magic\web" />
+      <recent name="E:\Mycode\MyGraduationProject\back-endServer\sys-project-api\src\main\java\cn\magic" />
+      <recent name="E:\Mycode\MyGraduationProject\back-endServer\sys-project-api\src\main\java\cn\magic\baiduReview\utils" />
+      <recent name="E:\Mycode\MyGraduationProject\back-endServer\sys-project-api\src\main\java\cn\magic\test" />
       <recent name="E:\Mycode\MyGraduationProject\back-endServer\sys-project-api\src\main\java\cn\magic\web\template" />
-      <recent name="E:\Mycode\MyGraduationProject\back-endServer\sys-project-api\src\main\java\cn\magic\web\like" />
-      <recent name="E:\Mycode\MyProject\myWebSite\sys-project\sys-project-api\src\main\java\cn\magic\web\video" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Mycode\汉云实习\安徽工业大学秀山校区\后端项目\sys-project\sys-project-api\src\main\java\cn\magic\web\goods_category\mapper" />
@@ -96,12 +121,12 @@
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.SysProjectApplication">
-    <configuration name="ImgCensor" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="cn.magic.baiduReview.service.ImgCensor" />
+    <configuration name="FaceDelete" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cn.magic.faceDetect.service.FaceDelete" />
       <module name="sys-project-api" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="cn.magic.baiduReview.utils.*" />
+          <option name="PATTERN" value="cn.magic.faceDetect.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -109,12 +134,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RateLimiterExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="cn.magic.RateLimiterExample" />
+    <configuration name="FaceSearch" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cn.magic.faceDetect.service.FaceSearch" />
       <module name="sys-project-api" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="cn.magic.*" />
+          <option name="PATTERN" value="cn.magic.faceDetect.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -122,12 +147,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="cn.magic.redis.test" />
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cn.magic.faceDetect.Main" />
       <module name="sys-project-api" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="cn.magic.redis.*" />
+          <option name="PATTERN" value="cn.magic.faceDetect.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -135,18 +160,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RedisTest.testRedis" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserGetInGroups" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cn.magic.faceDetect.service.UserGetInGroups" />
       <module name="sys-project-api" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="cn.magic.*" />
+          <option name="PATTERN" value="cn.magic.faceDetect.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="cn.magic" />
-      <option name="MAIN_CLASS_NAME" value="cn.magic.RedisTest" />
-      <option name="METHOD_NAME" value="testRedis" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -167,10 +189,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.SysProjectApplication" />
-        <item itemvalue="JUnit.RedisTest.testRedis" />
-        <item itemvalue="应用程序.test" />
-        <item itemvalue="应用程序.RateLimiterExample" />
-        <item itemvalue="应用程序.ImgCensor" />
+        <item itemvalue="应用程序.Main" />
+        <item itemvalue="应用程序.FaceSearch" />
+        <item itemvalue="应用程序.UserGetInGroups" />
+        <item itemvalue="应用程序.FaceDelete" />
       </list>
     </recent_temporary>
   </component>
@@ -396,7 +418,42 @@
       <workItem from="1747988563082" duration="1808000" />
       <workItem from="1748159294899" duration="9530000" />
       <workItem from="1748238711240" duration="609000" />
-      <workItem from="1748313268124" duration="4578000" />
+      <workItem from="1748313268124" duration="9351000" />
+      <workItem from="1748444210167" duration="3986000" />
+      <workItem from="1748487167939" duration="3385000" />
+      <workItem from="1748499401296" duration="6904000" />
+      <workItem from="1748518059540" duration="5180000" />
+      <workItem from="1748570259792" duration="5496000" />
+      <workItem from="1748591076539" duration="19022000" />
+      <workItem from="1748657928796" duration="2365000" />
+      <workItem from="1748663284465" duration="108000" />
+      <workItem from="1748668914378" duration="16464000" />
+      <workItem from="1748704248218" duration="254000" />
+      <workItem from="1748738218116" duration="847000" />
+      <workItem from="1748743879458" duration="1233000" />
+      <workItem from="1748839364977" duration="10000" />
+      <workItem from="1748915023466" duration="620000" />
+      <workItem from="1748957468220" duration="1281000" />
+      <workItem from="1748997103539" duration="3441000" />
+      <workItem from="1749023750893" duration="62000" />
+      <workItem from="1749023825169" duration="6290000" />
+      <workItem from="1749108733849" duration="1268000" />
+      <workItem from="1749351546856" duration="81000" />
+      <workItem from="1749353870827" duration="3480000" />
+      <workItem from="1749458827579" duration="612000" />
+      <workItem from="1749462794210" duration="187000" />
+      <workItem from="1749475901701" duration="290000" />
+      <workItem from="1749484790746" duration="2884000" />
+      <workItem from="1749537491798" duration="2233000" />
+      <workItem from="1749714722517" duration="42000" />
+      <workItem from="1749981362002" duration="13000" />
+      <workItem from="1749981603086" duration="130000" />
+      <workItem from="1749988509537" duration="938000" />
+      <workItem from="1749989560172" duration="2795000" />
+      <workItem from="1749997818145" duration="525000" />
+      <workItem from="1749998858600" duration="806000" />
+      <workItem from="1750000426143" duration="106000" />
+      <workItem from="1750002402321" duration="33000" />
     </task>
     <task id="LOCAL-00001" summary="firstPush">
       <created>1741497062901</created>
@@ -524,7 +581,14 @@
       <option name="project" value="LOCAL" />
       <updated>1748160384231</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="完成版区搜索树，修复获取所有active顶级版块api并集成搜索功能。">
+      <created>1748319753472</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1748319753473</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -575,7 +639,8 @@
     <MESSAGE value="研究审核" />
     <MESSAGE value="实现帖子的自动审核" />
     <MESSAGE value="尝试使用Redis,新增获取有效的Banner接口，修改基本的Post属性，为Board增加相关属性实现嵌套，新增获取Board树和待审核的版区Api,优化评论删除。完成举报相关的内容。修改删除菜单API,增加获取当前用户的路由树Api." />
-    <option name="LAST_COMMIT_MESSAGE" value="尝试使用Redis,新增获取有效的Banner接口，修改基本的Post属性，为Board增加相关属性实现嵌套，新增获取Board树和待审核的版区Api,优化评论删除。完成举报相关的内容。修改删除菜单API,增加获取当前用户的路由树Api." />
+    <MESSAGE value="完成版区搜索树，修复获取所有active顶级版块api并集成搜索功能。" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成版区搜索树，修复获取所有active顶级版块api并集成搜索功能。" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

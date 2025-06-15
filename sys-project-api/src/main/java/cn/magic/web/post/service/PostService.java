@@ -12,7 +12,8 @@ public interface PostService extends IService<Post> {
     boolean deletePostById(Long postId);
     // 通过id删除post的话题
     boolean deleteTopicByPostId(Long postId);
-    // 分页查找post带用户信息
+
+    // 分页查找post并且带用户信息，集成标题搜索
     IPage<Post> getPostListWithUserInfo(PostParam param);
     //审核post
     public void processAfterBothAsyncMethods(Post post);

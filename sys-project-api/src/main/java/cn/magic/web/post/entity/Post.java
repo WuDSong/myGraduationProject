@@ -32,6 +32,8 @@ public class Post {
     private List<String> coverImages;
     private Boolean hasImages = false;
     private Long reviewCount;
+    private Boolean hasVideo = false;
+    private String videoPath;
     @Version
     private Integer version; // 必须与数据库字段一致
     // 从这里开始下面都是表里没有的，其他东西

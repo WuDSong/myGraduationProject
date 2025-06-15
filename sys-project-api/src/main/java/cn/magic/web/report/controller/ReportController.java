@@ -53,26 +53,26 @@ public class ReportController {
         return ResultVo.error("新增举报/建议失败!");
     }
 
-    // 举报成立
+    // 举报成立/通过
     @Transactional
     @PutMapping("/resolved")
     public ResultVo resolved(@RequestBody Report report) {
         if(StringUtils.isEmpty(report.getStatus())){
             report.setResult(report.getStatus());
         }
-        report.setStatus("resolved");
+        report.setStatus("resolved");   //设置举报记录状态为已经处理
         report.setHandledAt(new Date());
-        if (reportService.updateById(report)) {
-            Report r=reportService.getById(report.getReportId());
-            if(r.getTargetType().equals("post")){
+        if (reportService.updateById(report)) { //更新举报记录
+            Report r=reportService.getById(report.getReportId());//获取更新后的举报记录
+            if(r.getTargetType().equals("post")){ //举报类型是帖子，修改帖子状态为审核失败
                 postService.rejectedPost(r.getTargetId());
             }
-            if(r.getTargetType().equals("comment")){
+            if(r.getTargetType().equals("comment")){//举报类型是评论，删除评论（逻辑删除）
                 commentService.delComment(r.getTargetId());
             }
-            return ResultVo.success("report成立");
+            return ResultVo.success("举报成立处理成功");
         }
-        return ResultVo.error("report不成立!");
+        return ResultVo.error("举报成立处理失败，请稍后再做尝试");
     }
 
     //驳回  （举报失败）
@@ -96,11 +96,11 @@ public class ReportController {
     // 查找当前待审核的帖子
     @GetMapping("/controversyPost")
     public ResultVo getPendingPostList(Long curPage,Long pageSize){
-        // 查找举报的帖子
+        // 查找举报的帖子，构建查找条件
         IPage<Report> page = new Page<>(curPage, pageSize);
         QueryWrapper<Report> reportQueryWrapper = new QueryWrapper<>();
-        reportQueryWrapper.lambda().eq(Report::getTargetType,"post").eq(Report::getStatus,"pending")
-                .orderByAsc(Report::getCreatedAt);
+        reportQueryWrapper.lambda().eq(Report::getTargetType,"post")
+                .eq(Report::getStatus,"pending").orderByAsc(Report::getCreatedAt);
         IPage<Report> reportPost = reportService.page(page,reportQueryWrapper);
         List<Report> reportList =reportPost.getRecords();
         // 查找post 公平，不返回用户信息和话题 版区等等
@@ -111,7 +111,6 @@ public class ReportController {
             vo.setReason(report.getReason());
             vo.setImages(report.getImages());
             vo.setCreatedAt(report.getCreatedAt());
-
             Post post = postService.getById(report.getTargetId());
             if(post!=null){
                 vo.setPostId(post.getPostId());
@@ -128,16 +127,11 @@ public class ReportController {
             reportPostVos.add(vo);
         }
         // 构建分页结果
-        IPage<ReportPostVo> resultPage = new Page<>(
-                reportPost.getCurrent(),
-                reportPost.getSize(),
-                reportPost.getTotal()
-        );
+        IPage<ReportPostVo> resultPage = new Page<>(reportPost.getCurrent(),
+                reportPost.getSize(), reportPost.getTotal());
         resultPage.setRecords(reportPostVos);
-        return ResultVo.success("查找争议帖子成功",resultPage);
+        return ResultVo.success("查找待审核的被举报帖子信息成功",resultPage);
     }
-
-
 
 
     // 查找当前待审核的评论

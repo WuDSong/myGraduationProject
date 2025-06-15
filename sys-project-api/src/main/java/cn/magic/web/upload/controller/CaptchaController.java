@@ -1,12 +1,10 @@
-package cn.magic.web.image.controller;
+package cn.magic.web.upload.controller;
 
 import cn.magic.utils.ResultVo;
-import cn.magic.web.post.service.PostService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpServletRequest;

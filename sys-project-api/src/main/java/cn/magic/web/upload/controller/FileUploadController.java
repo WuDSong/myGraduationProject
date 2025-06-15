@@ -1,4 +1,4 @@
-package cn.magic.web.image.controller;
+package cn.magic.web.upload.controller;
 
 
 // 大模型进行图片审核

@@ -40,8 +40,9 @@ public class ImgCensor {
     @Autowired
     private AuthService authService;  // 注入 AuthService 实例
 
-    //    1. 降低调用频率；2. 使用缓存减少请求；3. 申请更高的QPS配额；4. 使用负载均衡分散请求。
+    //百度每每秒只能进行一次检测，那这里就不能异步多线程  1. 降低调用频率；2. 使用缓存减少请求；3. 申请更高的QPS配额；4. 使用负载均衡分散请求。
     private final ExecutorService censorExecutor = Executors.newSingleThreadExecutor();
+//    RateLimiter是 Google Guava 库 中提供的一个用于限流（Rate Limiting） 的工具类
     private final RateLimiter rateLimiter = RateLimiter.create(1.0); // 每秒1个许可
     // 添加异步注解
     /**
@@ -54,12 +55,11 @@ public class ImgCensor {
             try {
                 // QPS 控制点
                 rateLimiter.acquire(); // 阻塞直到获得许可
-
                 // 原有审核逻辑
                 String url = "https://aip.baidubce.com/rest/2.0/solution/v1/img_censor/v2/user_defined";
+                // url图片 获取 转换
                 URL urlObj = new URL(filePath);
                 ByteArrayOutputStream output = new ByteArrayOutputStream();
-
                 try (InputStream inputStream = urlObj.openStream()) {
                     byte[] buffer = new byte[4096];
                     int bytesRead;
@@ -67,13 +67,12 @@ public class ImgCensor {
                         output.write(buffer, 0, bytesRead);
                     }
                 }
-
                 byte[] imgData = output.toByteArray();
                 String imgStr = Base64Util.encode(imgData);
                 String imgParam = URLEncoder.encode(imgStr, "UTF-8");
+                // 准备数据
                 String param = "image=" + imgParam;
                 String accessToken = authService.getAuth();
-
                 String result = HttpUtil.post(url, accessToken, param);
                 JSONObject jsonObject = new JSONObject(result);
 

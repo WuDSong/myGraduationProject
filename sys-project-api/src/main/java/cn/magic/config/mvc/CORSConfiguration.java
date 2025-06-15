@@ -9,8 +9,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class CORSConfiguration implements WebMvcConfigurer {
-    @Value("${web.load-path}")
-    private String loadPath; // 视频访问路径
+    @Value("${web.image.load-path}")
+    private String imgLoadPath; // 图片访问路径
+
+    @Value("${web.video.load-path}")
+    private String videoLoadPath;
+
     /**
      * 跨域配置
      */
@@ -27,6 +31,7 @@ public class CORSConfiguration implements WebMvcConfigurer {
     // 图片访问
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/image/**").addResourceLocations(loadPath);
+        registry.addResourceHandler("/image/**").addResourceLocations(imgLoadPath);
+        registry.addResourceHandler("/video/**").addResourceLocations(videoLoadPath);
     }
 }

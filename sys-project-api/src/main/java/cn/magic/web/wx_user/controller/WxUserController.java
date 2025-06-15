@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public class WxUserController {
 
     // 登录
     @PostMapping("/login")
-    public ResultVo login(@RequestBody WxUser user) {
+    public ResultVo login(@RequestBody WxUser user, HttpSession session) {
         //构造查询条件
         QueryWrapper<WxUser> query = new QueryWrapper<>();
         query.lambda().eq(WxUser::getUsername, user.getUsername()).eq(WxUser::getStatus,"active").eq(WxUser::getPassword,
@@ -73,6 +74,8 @@ public class WxUserController {
             UserActiveLog userActiveLog = new UserActiveLog();
             userActiveLog.setDate(new Date());
             userActiveLog.setUserId(wxUser.getUserId());
+            // 存储用户ID到会话
+            session.setAttribute("userId", wxUser.getUserId());
             try {
                 userActiveLogService.save(userActiveLog);
             }catch (Exception e){

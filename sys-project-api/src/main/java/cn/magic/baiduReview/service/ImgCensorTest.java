@@ -1,9 +1,7 @@
 package cn.magic.baiduReview.service;
 
-import cn.magic.baiduReview.utils.FileUtil;
 import cn.magic.baiduReview.utils.HttpUtil;
 import com.baidu.aip.util.Base64Util;
-import com.google.common.util.concurrent.RateLimiter;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -14,9 +12,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /*
   图像审核接口
@@ -29,7 +24,7 @@ import java.util.concurrent.Executors;
  */
 @Component  // 添加 Spring 组件注解，@Component 和 @Service 都是用来标识类为 Spring Bean 的注解，但它们有不同的语义目的。
 // @Service 本质上是 @Component 的子类注解，二者在 Spring 容器中的注册行为完全一致。唯一的区别是语义上的明确性。
-public class ImgCensor1 {
+public class ImgCensorTest {
     /**
      * 重要提示代码中所需工具类
      * FileUtil,Base64Util,HttpUtil,GsonUtils请从

@@ -27,13 +27,16 @@ public class BoardController {
     private PostService postService;
 
     //新增
+    @Transactional
     @PostMapping
     public ResultVo add(@RequestBody Board board) {
         //当字段值为空字符串时，MyBatis-Plus会将其作为有效值插入，覆盖数据库默认值。需确保未传递的字段保持为 null 而非空字符串。
         if (board.getIcon().equals(""))
             board.setIcon(null);
-        if (board.getSortOrder() > 10 || board.getSortOrder() < 1)
-            board.setSortOrder(null);
+        if(board.getSortOrder()!=null){ // 为空时数据库会设置99
+            if (board.getSortOrder() > 10 || board.getSortOrder() < 1)
+                board.setSortOrder(99L);
+        }
         System.out.println(board.getCreatorId());
         if (boardService.save(board)) {
             return ResultVo.success("新增成功!");
@@ -105,38 +108,6 @@ public class BoardController {
         return ResultVo.success("查询成功", list);
     }
 
-    // 获取完整的树形数据
-    @GetMapping("/tree")
-    public ResultVo getTree() {
-        QueryWrapper<Board> query = new QueryWrapper<>();
-        query.in("status", Arrays.asList("active", "banned"));
-        query.lambda().eq(Board::getIsDeleted, 0)
-                .orderByAsc(Board::getSortOrder);
-        List<Board> boardList = boardService.list(query);
-        // 构建树形数据
-        Map<Long, Board> boardMap = new LinkedHashMap<>();
-        // 先处理父节点
-        boardList.stream().filter(board -> board.getParentId() == null)
-                .sorted(Comparator.comparing(Board::getSortOrder))
-                .forEach(board -> {
-                    boardMap.put(board.getBoardId(), board);
-                    board.setChildren(new ArrayList<>());
-                });
-        // 处理子节点
-        boardList.stream()
-                .filter(board -> board.getParentId() != null)
-                .sorted(Comparator.comparing(Board::getSortOrder))
-                .forEach(board -> {
-                    Board parent = boardMap.get(board.getParentId());
-                    if (parent != null) {
-                        parent.getChildren().add(board);
-                    }
-                });
-
-        List<Board> boardTree = new ArrayList<>(boardMap.values());
-        return ResultVo.success("查询树形数据成功", boardTree);
-    }
-
     // 获取搜索的树形数据
     @GetMapping("/searchTree")
     public ResultVo getSearchTree(String name) {
@@ -145,7 +116,6 @@ public class BoardController {
         if (matchedTopBoards.isEmpty()) {
             return ResultVo.success("未找到匹配的顶级版区", Collections.emptyList());
         }
-
         // 2. 获取所有后代节点
         List<Long> topIds = matchedTopBoards.stream()
                 .map(Board::getBoardId)
@@ -212,26 +182,39 @@ public class BoardController {
         return ResultVo.success("查询活动的顶级版块成功", list);
     }
 
-    //获取我的板块
+    // 获取版区的孩子
+    @GetMapping("/getChildren/{id}")
+    public ResultVo getChildren(@PathVariable("id") Long id){
+        QueryWrapper<Board> query = new QueryWrapper<>();
+        query.lambda().eq(Board::getParentId,id).eq(Board::getIsDeleted, 0)
+                .eq(Board::getStatus, "active").orderByAsc(Board::getSortOrder);
+        List<Board> list = boardService.list(query);
+        return ResultVo.success("查询活动的顶级版块成功", list);
+    }
+
+    //获取我的顶级板块
     @GetMapping("/my/{userId}")
     public ResultVo getMyBoard(@PathVariable("userId") Long userId) {
         QueryWrapper<Board> query = new QueryWrapper<>();
-        query.lambda().eq(Board::getStatus, "active").eq(Board::getIsDeleted, 0).eq(Board::getParentId, null)
+        query.lambda().eq(Board::getStatus, "active").eq(Board::getIsDeleted, 0).isNull(Board::getParentId)
                 .eq(Board::getCreatorId, userId).orderByAsc(Board::getSortOrder);
         List<Board> list = boardService.list(query);
         return ResultVo.success("查询我的板块成功", list);
     }
 
     //判断名字是否被占用
-    @GetMapping("/isOccupied/{boardName}")
-    public ResultVo isOccupied(@PathVariable("boardName") String name) {
+    @GetMapping("/isOccupied")
+    public ResultVo isOccupied( @RequestParam(required = false) Long parentId,@RequestParam("boardName") String name) {
         QueryWrapper<Board> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(Board::getName, name);
+        if(parentId!=null)
+            wrapper.lambda().eq(Board::getParentId, parentId).eq(Board::getName, name);
+        else
+            wrapper.lambda().isNull(Board::getParentId).eq(Board::getName, name);
         Board board = boardService.getOne(wrapper);
         if (board != null) {
-            return ResultVo.success("被占用！重新填写！", true);
+            return ResultVo.success("该名称在同一父板块下已被占用！请重新填写。", true);
         }
-        return ResultVo.success("没有被占用", false);
+        return ResultVo.success("该名称可用", false);
     }
 
     // 获取要审核的版区

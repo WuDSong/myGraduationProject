@@ -23,4 +23,6 @@ public class Board {
     private Long parentId;
     @TableField(exist = false)
     private List<Board> children;
+    @TableField(exist = false)
+    private Long postCount;
 }

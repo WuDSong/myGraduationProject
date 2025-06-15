@@ -109,10 +109,10 @@ public class PostController {
             post.setHasImages(true);
             post.setCoverImages(imgCoverArrays);
         }
-        // post内容处理
+        // post内容提取
         post.setContentText(extractTextContent(post.getContent()));
         if (postService.save(post)) {
-            //保存了post
+            //保存了post 之后 处理 "话题标签"
             if (post.getTopicIds() != null && post.getTopicIds().size() > 0)
                 postService.addTopicForPost(post);
             logger.info("新增一条帖子成功");
@@ -205,7 +205,7 @@ public class PostController {
         return postService.page(page, queryWrapper);
     }
 
-    // 分页查找正常帖子带话题等等其他所有东西(完整信息的帖子), 1.使用sql查询
+    // 分页查找正常帖子带话题等等其他所有东西(完整信息的帖子),集成搜索   1.使用sql查询
     @GetMapping("/fullPostsInfoList")
     public ResultVo getFullPostsInfoList(PostParam param) {
         // 先查带有user信息的Post
@@ -262,10 +262,6 @@ public class PostController {
         return ResultVo.success("查找成功", page);
     }
 
-    // 分页查询查找待二审的帖子  一审默认执行过了
-
-
-
     //  获取我的帖子 （正常/审核中/审核后）
     @GetMapping("/myPost/{userId}")
     public ResultVo getMyPost(@PathVariable("userId") Long userId) {
@@ -288,6 +284,17 @@ public class PostController {
         myPostVo.setReview_rejected(rejectedList);
 
         return ResultVo.success("ok",myPostVo);
+    }
+
+    @PutMapping("/changePostToDraft/{postId}")
+    public ResultVo changePostToDraft(@PathVariable("postId") Long postId){
+        Post post=postService.getById(postId);
+        if(post!=null){
+            post.setStatus("draft");
+            postService.updateById(post);
+            return ResultVo.success("帖子被打回草稿！");
+        }
+        return ResultVo.error("帖子打回草稿失败");
     }
 
     @GetMapping("/myDraftPost")
